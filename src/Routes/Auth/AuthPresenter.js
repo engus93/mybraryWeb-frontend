@@ -3,6 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 
+// Import My Files
+import Input from "./../../Components/Input";
+
 // Styled Components
 const BgWrapper = styled.div`
   width: 100%;
@@ -46,17 +49,36 @@ const Authbtn = styled.button`
 `;
 
 const SignBox = styled.div`
-  width: 300px;
-  height: 300px;
+  padding: 90px 70px;
   background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-export default ({ action, setAction }) => {
+const SignInput = styled(Input)`
+  margin-top: 20px;
+`;
+
+export default ({
+  action,
+  setAction,
+  signInEmail,
+  signInPw,
+  signUpEmail,
+  signUpPw,
+  signUpRePw,
+  signUpUsername
+}) => {
   return (
     <BgWrapper>
       <BgWrapperOn>
         {action === "auth" && (
           <>
+            <Helmet>
+              <title>Welcome | MyBrary</title>
+            </Helmet>
             <MainTitle>Welcome Mybrary</MainTitle>
             <Authbtn onClick={() => setAction("signIn")}>Sign In</Authbtn>
             <Authbtn onClick={() => setAction("signUp")}>Sign Up</Authbtn>
@@ -64,13 +86,37 @@ export default ({ action, setAction }) => {
         )}
         {action === "signIn" && (
           <SignBox>
+            <Helmet>
+              <title>Sign In | MyBrary</title>
+            </Helmet>
             <MainTitle>Sign In</MainTitle>
+            <SignInput placeholder={"Email"} type={"email"} {...signInEmail} />
+            <SignInput
+              placeholder={"Password"}
+              type={"password"}
+              {...signInPw}
+            />
             <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
           </SignBox>
         )}
         {action === "signUp" && (
           <SignBox>
+            <Helmet>
+              <title>Sign Up | MyBrary</title>
+            </Helmet>
             <MainTitle>Sign Up</MainTitle>
+            <SignInput placeholder={"Email"} type={"email"} {...signUpEmail} />
+            <SignInput
+              placeholder={"Password"}
+              type={"password"}
+              {...signUpPw}
+            />
+            <SignInput
+              placeholder={"Re Password"}
+              type={"password"}
+              {...signUpRePw}
+            />
+            <SignInput placeholder={"User Name"} {...signUpUsername} />
             <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
           </SignBox>
         )}
