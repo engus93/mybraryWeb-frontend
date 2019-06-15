@@ -5,8 +5,11 @@ import Helmet from "react-helmet";
 
 // Import My Files
 import Input from "./../../Components/Input";
+import Span from "./../../Components/Span";
 
 // Styled Components
+
+// 배경화면
 const BgWrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -15,23 +18,63 @@ const BgWrapper = styled.div`
   opacity: 0.9;
 `;
 
-const BgWrapperOn = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${props =>
+    props.welcome ? "rgba(0, 0, 0, 0.3)" : props.theme.mainColorBG};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 `;
 
-const MainTitle = styled.h1`
-  color: white;
-  font-size: 42px;
+// Sign Component Header
+const SignHeader = styled.div`
+  background-color: ${props => props.theme.mainColor};
+  border-radius: 4px 4px 0 0;
+  width: 100%;
+  height: 70px;
+  position: absolute;
   text-align: center;
-  padding: 20px;
+  top: 0;
 `;
 
+// Header Logo
+const LogoBtn = styled.button`
+  width: auto;
+  background-color: transparent;
+  padding: 0;
+  top: 17px;
+  position: relative;
+`;
+
+const MainTitle = styled.h1`
+  color: ${props => props.theme.whiteColor};
+  font-size: ${props => props.fontSize};
+  line-height: ${props => (props.lineHeight ? "52px" : props.fontSize)};
+  text-align: center;
+`;
+
+// Sign In & Up Box
+const SignBox = styled.div`
+  background-color: ${props => props.theme.lightWhiteColor};
+  width: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: ${props => props.theme.borderRadius};
+  padding: 100px 0 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  @media (max-width: 375px) {
+    width: 95%;
+  }
+`;
+
+// Sign In & Up Public Btn
 const Authbtn = styled.button`
   box-shadow: ${props => props.theme.boxShadow};
   color: white;
@@ -48,13 +91,23 @@ const Authbtn = styled.button`
   }
 `;
 
-const SignBox = styled.div`
-  padding: 90px 70px;
-  background-color: rgba(0, 0, 0, 0.6);
+// Input 아래 작은 글씨 Container
+const SignUpClickBox = styled.div`
+  margin-top: 25px;
+`;
+
+const Button = styled.button`
+  background-color: transparent;
+  color: ${props => props.theme.mainColor};
+  font-weight: 600;
+`;
+
+// Btn 정렬 Container
+const BtnWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: center;
+  width: 100%;
 `;
 
 const SignInput = styled(Input)`
@@ -72,39 +125,59 @@ export default ({
   signUpUsername
 }) => {
   return (
-    <BgWrapper>
-      <BgWrapperOn>
-        {action === "auth" && (
-          <>
+    <>
+      {action === "auth" && (
+        <BgWrapper>
+          <Wrapper welcome={true}>
             <Helmet>
               <title>Welcome | MyBrary</title>
             </Helmet>
-            <MainTitle>Welcome Mybrary</MainTitle>
-            <Authbtn onClick={() => setAction("signIn")}>Sign In</Authbtn>
-            <Authbtn onClick={() => setAction("signUp")}>Sign Up</Authbtn>
-          </>
-        )}
-        {action === "signIn" && (
+            <MainTitle fontSize={"42px"} lineHeight={true}>
+              Welcome Mybrary
+            </MainTitle>
+            <Authbtn onClick={() => setAction("signIn")}>Get Started</Authbtn>
+          </Wrapper>
+        </BgWrapper>
+      )}
+      {action === "signIn" && (
+        <Wrapper>
           <SignBox>
             <Helmet>
               <title>Sign In | MyBrary</title>
             </Helmet>
-            <MainTitle>Sign In</MainTitle>
+            <SignHeader>
+              <LogoBtn onClick={() => setAction("auth")}>
+                <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
+              </LogoBtn>
+            </SignHeader>
             <SignInput placeholder={"Email"} type={"email"} {...signInEmail} />
             <SignInput
               placeholder={"Password"}
               type={"password"}
               {...signInPw}
             />
-            <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
+            <SignUpClickBox>
+              <Span fontSize={10} text={"Mybrary 계정이 아직 없다면 ?"} />
+              <Button onClick={() => setAction("signUp")}>Sign Up</Button>
+            </SignUpClickBox>
+            <BtnWrapper>
+              <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
+              <Authbtn onClick={() => setAction("auth")}>Sign In</Authbtn>
+            </BtnWrapper>
           </SignBox>
-        )}
-        {action === "signUp" && (
+        </Wrapper>
+      )}
+      {action === "signUp" && (
+        <Wrapper>
           <SignBox>
             <Helmet>
-              <title>Sign Up | MyBrary</title>
+              <title>Sign In | MyBrary</title>
             </Helmet>
-            <MainTitle>Sign Up</MainTitle>
+            <SignHeader>
+              <LogoBtn onClick={() => setAction("auth")}>
+                <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
+              </LogoBtn>
+            </SignHeader>
             <SignInput placeholder={"Email"} type={"email"} {...signUpEmail} />
             <SignInput
               placeholder={"Password"}
@@ -117,10 +190,17 @@ export default ({
               {...signUpRePw}
             />
             <SignInput placeholder={"User Name"} {...signUpUsername} />
-            <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
+            <SignUpClickBox>
+              <Span fontSize={10} text={"Mybrary 계정이 이미 있다면 ?"} />
+              <Button onClick={() => setAction("signIn")}>Sign In</Button>
+            </SignUpClickBox>
+            <BtnWrapper>
+              <Authbtn onClick={() => setAction("signIn")}>Cancel</Authbtn>
+              <Authbtn onClick={() => setAction("signIn")}>Sign Up</Authbtn>
+            </BtnWrapper>
           </SignBox>
-        )}
-      </BgWrapperOn>
-    </BgWrapper>
+        </Wrapper>
+      )}
+    </>
   );
 };

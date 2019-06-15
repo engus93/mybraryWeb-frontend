@@ -7,8 +7,10 @@ export default {
   boxBorder: "1px solid #e6e6e6",
   borderRadius: "4px",
   // Color
-  inputColor: "#FAFAFA",
+  whiteColor: "#FAFAFA",
+  lightWhiteColor: "#F3F3F3",
   blackColor: "#262626",
   mainColor: "#f3aa42e8",
-  mainColorHover: "#f3aa42b5"
+  mainColorHover: "#f3aa42b5",
+  mainColorBG: "#FFFAF0"
 };
