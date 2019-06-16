@@ -4,8 +4,9 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 
 // Import My Files
-import Input from "./../../Components/Input";
 import Span from "./../../Components/Span";
+import AnimationInput from "../../Components/AnimationInput";
+import { fadeIn } from "../../Styles/KeyFrames";
 
 // Styled Components
 
@@ -27,6 +28,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  animation: ${fadeIn} 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
 `;
 
 // Sign Component Header
@@ -85,9 +87,10 @@ const Authbtn = styled.button`
   background-color: ${props => props.theme.mainColor};
   font-weight: 600;
   font-size: 16px;
+  transition: ${props => props.theme.transitionOpt};
+
   :hover {
     background-color: ${props => props.theme.mainColorHover};
-    transition: background-color ease-out 0.2s;
   }
 `;
 
@@ -96,10 +99,16 @@ const SignUpClickBox = styled.div`
   margin-top: 25px;
 `;
 
-const Button = styled.button`
+// trans button
+const TransBtn = styled.button`
   background-color: transparent;
   color: ${props => props.theme.mainColor};
   font-weight: 600;
+  transition: ${props => props.theme.transitionOpt};
+
+  :hover {
+    color: ${props => props.theme.mainColorHover};
+  }
 `;
 
 // Btn 정렬 Container
@@ -108,10 +117,6 @@ const BtnWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-`;
-
-const SignInput = styled(Input)`
-  margin-top: 20px;
 `;
 
 export default ({
@@ -150,15 +155,21 @@ export default ({
                 <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
               </LogoBtn>
             </SignHeader>
-            <SignInput placeholder={"Email"} type={"email"} {...signInEmail} />
-            <SignInput
-              placeholder={"Password"}
+            <AnimationInput
+              id={"signInEmail"}
+              type={"email"}
+              {...signInEmail}
+              labelText={"Email"}
+            />
+            <AnimationInput
+              id={"signInPw"}
               type={"password"}
               {...signInPw}
+              labelText={"Password"}
             />
             <SignUpClickBox>
               <Span fontSize={10} text={"Mybrary 계정이 아직 없다면 ?"} />
-              <Button onClick={() => setAction("signUp")}>Sign Up</Button>
+              <TransBtn onClick={() => setAction("signUp")}>Sign Up</TransBtn>
             </SignUpClickBox>
             <BtnWrapper>
               <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
@@ -178,21 +189,32 @@ export default ({
                 <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
               </LogoBtn>
             </SignHeader>
-            <SignInput placeholder={"Email"} type={"email"} {...signUpEmail} />
-            <SignInput
-              placeholder={"Password"}
+            <AnimationInput
+              id={"signUpEmail"}
+              labelText={"Email"}
+              type={"email"}
+              {...signUpEmail}
+            />
+            <AnimationInput
+              id={"signUpPw"}
+              labelText={"Password"}
               type={"password"}
               {...signUpPw}
             />
-            <SignInput
-              placeholder={"Re Password"}
+            <AnimationInput
+              id={"signUpRePw"}
+              labelText={"Re Password"}
               type={"password"}
               {...signUpRePw}
             />
-            <SignInput placeholder={"User Name"} {...signUpUsername} />
+            <AnimationInput
+              id={"signUpUsername"}
+              labelText={"User Name"}
+              {...signUpUsername}
+            />
             <SignUpClickBox>
               <Span fontSize={10} text={"Mybrary 계정이 이미 있다면 ?"} />
-              <Button onClick={() => setAction("signIn")}>Sign In</Button>
+              <TransBtn onClick={() => setAction("signIn")}>Sign In</TransBtn>
             </SignUpClickBox>
             <BtnWrapper>
               <Authbtn onClick={() => setAction("signIn")}>Cancel</Authbtn>

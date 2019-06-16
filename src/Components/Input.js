@@ -15,6 +15,7 @@ const Container = styled.input`
 
 // Render
 const Input = ({
+  id,
   placeholder,
   required = true,
   value,
@@ -23,6 +24,7 @@ const Input = ({
   className
 }) => (
   <Container
+    id={id}
     placeholder={placeholder}
     required={required}
     value={value}
@@ -34,7 +36,8 @@ const Input = ({
 
 // PropTypes Structure
 Input.propTypes = {
-  placeholder: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
