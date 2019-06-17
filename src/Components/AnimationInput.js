@@ -54,7 +54,6 @@ export default ({
   value,
   onChange,
   type = "text",
-  htmlFor,
   labelText
 }) => {
   const [ani, setAni] = useState(false);

@@ -6,11 +6,16 @@ import PropTypes from "prop-types";
 // Styled Components
 const Container = styled.span`
   font-size: ${props => props.fontSize}px;
+  padding: ${props => props.paddingValue};
 `;
 
 // Render
-const Span = ({ text, fontSize, className }) => (
-  <Container fontSize={fontSize} className={className}>
+const Span = ({ text, fontSize, paddingValue, className }) => (
+  <Container
+    fontSize={fontSize}
+    className={className}
+    paddingValue={paddingValue}
+  >
     {text}
   </Container>
 );
@@ -18,7 +23,8 @@ const Span = ({ text, fontSize, className }) => (
 // PropTypes Structure
 Span.propTypes = {
   text: PropTypes.string.isRequired,
-  fontSize: PropTypes.number.isRequired
+  fontSize: PropTypes.number.isRequired,
+  paddingValue: PropTypes.string
 };
 
 export default Span;

@@ -3,6 +3,8 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { HashRouter as Router } from "react-router-dom";
 import { gql } from "apollo-boost";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // My Files
 import Theme from "../Styles/Theme";
@@ -28,6 +30,7 @@ export default () => {
         <Router>
           <AppRouter isLoggedIn={isLoggedIn} />
         </Router>
+        <ToastContainer autoClose={2000} position={"bottom-left"} />
       </>
     </ThemeProvider>
   );

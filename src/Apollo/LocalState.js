@@ -1,6 +1,6 @@
 // Is it token at localstorage?
 export const defaults = {
-  isLoggedIn: localStorage.getItem("token") || false
+  isLoggedIn: Boolean(localStorage.getItem("token")) || false
 };
 
 // Set and change the token and value about isLoggedIn

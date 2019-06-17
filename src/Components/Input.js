@@ -31,6 +31,7 @@ const Input = ({
     onChange={onChange}
     type={type}
     className={className}
+    autoComplete="off"
   />
 );
 
