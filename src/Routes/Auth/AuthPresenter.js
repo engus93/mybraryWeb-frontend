@@ -127,7 +127,8 @@ export default ({
   signUpEmail,
   signUpPw,
   signUpRePw,
-  signUpUsername
+  signUpUsername,
+  signOnSubmit
 }) => {
   return (
     <>
@@ -146,81 +147,93 @@ export default ({
       )}
       {action === "signIn" && (
         <Wrapper>
-          <SignBox>
-            <Helmet>
-              <title>Sign In | MyBrary</title>
-            </Helmet>
-            <SignHeader>
-              <LogoBtn onClick={() => setAction("auth")}>
-                <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
-              </LogoBtn>
-            </SignHeader>
-            <AnimationInput
-              id={"signInEmail"}
-              type={"email"}
-              {...signInEmail}
-              labelText={"Email"}
-            />
-            <AnimationInput
-              id={"signInPw"}
-              type={"password"}
-              {...signInPw}
-              labelText={"Password"}
-            />
-            <SignUpClickBox>
-              <Span fontSize={10} text={"Mybrary 계정이 아직 없다면 ?"} />
-              <TransBtn onClick={() => setAction("signUp")}>Sign Up</TransBtn>
-            </SignUpClickBox>
-            <BtnWrapper>
-              <Authbtn onClick={() => setAction("auth")}>Cancel</Authbtn>
-              <Authbtn onClick={() => setAction("auth")}>Sign In</Authbtn>
-            </BtnWrapper>
-          </SignBox>
+          <form onSubmit={signOnSubmit}>
+            <SignBox>
+              <Helmet>
+                <title>Sign In | MyBrary</title>
+              </Helmet>
+              <SignHeader>
+                <LogoBtn type={"button"} onClick={() => setAction("auth")}>
+                  <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
+                </LogoBtn>
+              </SignHeader>
+              <AnimationInput
+                id={"signInEmail"}
+                type={"email"}
+                {...signInEmail}
+                labelText={"Email"}
+              />
+              <AnimationInput
+                id={"signInPw"}
+                type={"password"}
+                {...signInPw}
+                labelText={"Password"}
+              />
+              <SignUpClickBox>
+                <Span fontSize={10} text={"Mybrary 계정이 아직 없다면 ?"} />
+                <TransBtn type={"button"} onClick={() => setAction("signUp")}>
+                  Sign Up
+                </TransBtn>
+              </SignUpClickBox>
+              <BtnWrapper>
+                <Authbtn type={"button"} onClick={() => setAction("auth")}>
+                  Cancel
+                </Authbtn>
+                <Authbtn>Sign In</Authbtn>
+              </BtnWrapper>
+            </SignBox>
+          </form>
         </Wrapper>
       )}
       {action === "signUp" && (
         <Wrapper>
-          <SignBox>
-            <Helmet>
-              <title>Sign In | MyBrary</title>
-            </Helmet>
-            <SignHeader>
-              <LogoBtn onClick={() => setAction("auth")}>
-                <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
-              </LogoBtn>
-            </SignHeader>
-            <AnimationInput
-              id={"signUpEmail"}
-              labelText={"Email"}
-              type={"email"}
-              {...signUpEmail}
-            />
-            <AnimationInput
-              id={"signUpPw"}
-              labelText={"Password"}
-              type={"password"}
-              {...signUpPw}
-            />
-            <AnimationInput
-              id={"signUpRePw"}
-              labelText={"Re Password"}
-              type={"password"}
-              {...signUpRePw}
-            />
-            <AnimationInput
-              id={"signUpUsername"}
-              labelText={"User Name"}
-              {...signUpUsername}
-            />
-            <SignUpClickBox>
-              <Span fontSize={10} text={"Mybrary 계정이 이미 있다면 ?"} />
-              <TransBtn onClick={() => setAction("signIn")}>Sign In</TransBtn>
-            </SignUpClickBox>
-            <BtnWrapper>
-              <Authbtn onClick={() => setAction("signIn")}>Cancel</Authbtn>
-              <Authbtn onClick={() => setAction("signIn")}>Sign Up</Authbtn>
-            </BtnWrapper>
-          </SignBox>
+          <form onSubmit={signOnSubmit}>
+            <SignBox>
+              <Helmet>
+                <title>Sign In | MyBrary</title>
+              </Helmet>
+              <SignHeader>
+                <LogoBtn type={"button"} onClick={() => setAction("auth")}>
+                  <MainTitle fontSize={"32px"}>MyBrary</MainTitle>
+                </LogoBtn>
+              </SignHeader>
+              <AnimationInput
+                id={"signUpEmail"}
+                labelText={"Email"}
+                type={"email"}
+                {...signUpEmail}
+              />
+              <AnimationInput
+                id={"signUpPw"}
+                labelText={"Password"}
+                type={"password"}
+                {...signUpPw}
+              />
+              <AnimationInput
+                id={"signUpRePw"}
+                labelText={"Re Password"}
+                type={"password"}
+                {...signUpRePw}
+              />
+              <AnimationInput
+                id={"signUpUsername"}
+                labelText={"User Name"}
+                {...signUpUsername}
+              />
+              <SignUpClickBox>
+                <Span fontSize={10} text={"Mybrary 계정이 이미 있다면 ?"} />
+                <TransBtn type={"button"} onClick={() => setAction("signIn")}>
+                  Sign In
+                </TransBtn>
+              </SignUpClickBox>
+              <BtnWrapper>
+                <Authbtn type={"button"} onClick={() => setAction("signIn")}>
+                  Cancel
+                </Authbtn>
+                <Authbtn>Sign Up</Authbtn>
+              </BtnWrapper>
+            </SignBox>
+          </form>
         </Wrapper>
       )}
     </>
