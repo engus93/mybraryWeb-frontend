@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-apollo-hooks";
 
 // Import My Files
-import { DownArrow, Person, OtherPosts, LogOut } from "./Icons";
+import { DownArrow, Person, OtherPosts, LogOut, DropHamburger } from "./Icons";
 import Span from "./Span";
 import { Library } from "./Icons";
 import { useMutation } from "react-apollo-hooks";
+import useInput from "../Hooks/useInput";
+import Input from "./Input";
+import { Home } from "./Icons";
 
 // Style Components
 const Header = styled.header`
@@ -27,12 +30,27 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 1054px) {
+    width: 100%;
+  }
 `;
 
 const LogoLink = styled(Link)`
   font-size: 20px;
   color: white;
   font-weight: 600;
+  margin-right: 10px;
+  width: 100px;
+  @media (max-width: 425px) {
+    display: none;
+  }
+`;
+
+const SearchInput = styled(Input)`
+  width: 50%;
+  @media (max-width: 425px) {
+    width: 70%;
+  }
 `;
 
 const MyInfoBox = styled.div`
@@ -41,8 +59,8 @@ const MyInfoBox = styled.div`
   user-select: none;
   position: relative;
   justify-content: flex-end;
-  width: 100px;
   cursor: pointer;
+  margin-left: 10px;
 `;
 
 const UserName = styled(Span)`
@@ -52,16 +70,42 @@ const UserName = styled(Span)`
   font-weight: 600;
 `;
 
-const ClickMenu = styled.div``;
+const ClickMenu = styled.div`
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  @media (max-width: 425px) {
+    display: none;
+  }
+`;
+
+const DropMenuResponsive = styled(DropHamburger)`
+  display: none;
+  @media (max-width: 425px) {
+    display: block;
+  }
+`;
 
 const DropMenu = styled.div`
   position: absolute;
   background-color: ${props => props.theme.mainColorBG};
   box-shadow: ${props => props.theme.boxShadow};
-  top: 1.5em;
-  left: 0;
-  right: -12px;
+  top: 2em;
+  left: -12px;
+  right: 0px;
   display: ${({ showing }) => (showing ? "block" : "none")};
+  @media (max-width: 425px) {
+    left: -85px;
+  }
+`;
+
+const HomeMenu = styled(Home)`
+  display: none;
+  margin-right: 10px;
+  @media (max-width: 425px) {
+    display: block;
+  }
 `;
 
 const MenuCategoty = styled.div`
@@ -102,9 +146,13 @@ const LOG_OUT = gql`
 `;
 
 export default () => {
+  // My Info Query
   const {
     data: { me }
   } = useQuery(ME);
+
+  // Variables
+  const searchBar = useInput("");
 
   // Drop Box Click Function
   const [drop, setDrop] = useState(false);
@@ -139,7 +187,11 @@ export default () => {
   return (
     <Header>
       <HeaderWrapper>
+        <Link to="/">
+          <HomeMenu fill={"white"} />
+        </Link>
         <LogoLink to="/">MYBRARY</LogoLink>
+        <SearchInput placeholder={"Search"} {...searchBar} />
         <MyInfoBox ref={dropMenuBox}>
           <ClickMenu>
             {me && me.username ? (
@@ -149,6 +201,7 @@ export default () => {
             )}
             <DownArrow size={12} fill={"white"} />
           </ClickMenu>
+          <DropMenuResponsive fill={"white"} />
           <DropMenu showing={drop}>
             <MenuCategoty>
               <MenuLink to={"/myPage"}>
