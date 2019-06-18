@@ -15,6 +15,7 @@ export const resolvers = {
           isLoggedIn: true
         }
       });
+      window.location = "/";
       return null;
     },
     userLogOut: (_, __, { cache }) => {
@@ -26,7 +27,7 @@ export const resolvers = {
           isLoggedIn: false
         }
       });
-      window.location.reload();
+      window.location = "/";
       return null;
     }
   }
