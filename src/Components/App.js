@@ -11,6 +11,7 @@ import Theme from "../Styles/Theme";
 import GlobalStyles from "../Styles/GlobalStyles";
 import AppRouter from "./Routes";
 import { useQuery } from "react-apollo-hooks";
+import Header from "./Header";
 
 const QUERY = gql`
   {
@@ -28,6 +29,7 @@ export default () => {
       <>
         <GlobalStyles />
         <Router>
+          {isLoggedIn && <Header />}
           <AppRouter isLoggedIn={isLoggedIn} />
         </Router>
         <ToastContainer autoClose={2000} position={"bottom-left"} />

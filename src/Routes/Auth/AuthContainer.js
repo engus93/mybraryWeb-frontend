@@ -19,7 +19,7 @@ export default () => {
   const signInEmail = useInput("");
   const signInPw = useInput("");
   const signUpEmail = useInput("");
-  const signUpPw = useInput();
+  const signUpPw = useInput("");
   const signUpRePw = useInput("");
   const signUpUsername = useInput("");
 
@@ -139,13 +139,19 @@ export default () => {
         const {
           data: { authentication: token }
         } = await authenticationMutation();
-        if (token !== "" && token !== undefined) {
-          localLogInMutation({ variables: { token } });
+        if (token === "" || token === undefined) {
+          // eslint-disable-next-line no-throw-literal
+          throw "알 수 없는 오류가 발생했습니다. 다시 한번 시도해주세요.";
+        } else if (
+          token === "아이디가 일치하지 않습니다." ||
+          token === "비밀번호가 일치하지 않습니다."
+        ) {
+          throw token;
         } else {
-          throw Error();
+          await localLogInMutation({ variables: { token } });
         }
-      } catch {
-        toast.error("Can't confirm secret, check again.");
+      } catch (error) {
+        toast.error(error);
       }
     }
   };
