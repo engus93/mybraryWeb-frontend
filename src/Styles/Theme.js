@@ -2,6 +2,7 @@
 
 // Styles Theme
 export default {
+  wrapperWidth: "1000px",
   boxShadow:
     "0px 4px 5px rgba(0, 15, 11, 0.15), 0px 12px 28px rgba(0, 15, 11, 0.15)",
   boxBorder: "1px solid #e6e6e6",
