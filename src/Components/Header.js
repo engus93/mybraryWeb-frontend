@@ -16,21 +16,20 @@ import { Home } from "./Icons";
 
 // Style Components
 const Header = styled.header`
+  background-color: ${props => props.theme.mainColor};
   width: 100%;
   height: 50px;
-  background-color: #eee;
 `;
 
 const HeaderWrapper = styled.div`
-  width: 1054px;
+  width: ${props => props.theme.wrapperWidth};
   height: 100%;
   margin: 0 auto;
   padding: 7px 12px;
-  background-color: ${props => props.theme.mainColor};
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media (max-width: 1054px) {
+  @media (max-width: 1024px) {
     width: 100%;
   }
 `;
@@ -71,7 +70,7 @@ const UserName = styled(Span)`
 `;
 
 const ClickMenu = styled.div`
-  width: 100px;
+  width: 85px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -91,8 +90,9 @@ const DropMenu = styled.div`
   position: absolute;
   background-color: ${props => props.theme.mainColorBG};
   box-shadow: ${props => props.theme.boxShadow};
+  z-index: 1;
   top: 2em;
-  left: -12px;
+  left: -30px;
   right: 0px;
   display: ${({ showing }) => (showing ? "block" : "none")};
   @media (max-width: 425px) {
@@ -100,7 +100,7 @@ const DropMenu = styled.div`
   }
 `;
 
-const HomeMenu = styled(Home)`
+const HomeMenu = styled(Link)`
   display: none;
   margin-right: 10px;
   @media (max-width: 425px) {
@@ -187,9 +187,9 @@ export default () => {
   return (
     <Header>
       <HeaderWrapper>
-        <Link to="/">
-          <HomeMenu fill={"white"} />
-        </Link>
+        <HomeMenu to="/">
+          <Home />
+        </HomeMenu>
         <LogoLink to="/">MYBRARY</LogoLink>
         <SearchInput placeholder={"Search"} {...searchBar} />
         <MyInfoBox ref={dropMenuBox}>
@@ -199,9 +199,9 @@ export default () => {
             ) : (
               <UserName fontSize={14} text={"Loading.."} />
             )}
-            <DownArrow size={12} fill={"white"} />
+            <DownArrow size={12} />
           </ClickMenu>
-          <DropMenuResponsive fill={"white"} />
+          <DropMenuResponsive />
           <DropMenu showing={drop}>
             <MenuCategoty>
               <MenuLink to={"/myPage"}>
