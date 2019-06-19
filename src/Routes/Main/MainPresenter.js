@@ -15,6 +15,9 @@ const Main = styled.div`
 const Wrapper = styled.div`
   width: ${props => props.theme.wrapperWidth};
   margin: 0 auto;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const MainBanner = styled(Slider)`

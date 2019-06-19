@@ -13,7 +13,15 @@ export default () => {
     speed: 1000,
     autoplaySpeed: 3000,
     slidesToShow: 3,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
   };
 
   const {
