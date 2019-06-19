@@ -11,47 +11,53 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-  /* background-color: ${props => props.theme.ColorBG}; */
   background-color: white;
   border-right: 1px solid #e6e6e6;
+  height: 100%;
 `;
 
 const Title = styled(Span)`
   text-align: center;
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   margin-top: 10px;
+  display: inline-block;
+  /* 글자 한줄로 나오게하기 */
+  width: 85%;
+  ${props => props.theme.hideText}
 `;
 
-const Image = styled.img`
+const Image = styled.div`
+  background: url(${props => props.src}) no-repeat center center;
+  background-size: contain;
+  margin-top: 25px;
   width: 180px;
-  margin-top: 10px;
+  height: 250px;
+  box-shadow: ${props => props.theme.boxShadow};
 `;
 
-const Description = styled(Span)`
+const Author = styled(Span)`
   text-align: center;
   padding: 10px;
   margin-top: 10px;
+  /* 글자 한줄로 나오게하기 */
+  width: 85%;
+  ${props => props.theme.hideText}
 `;
 
-const BannerBook = ({
-  id = "1",
-  title = "오늘의 책",
-  image = "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2uN/image/Iwc2WWMtpK2gVkE_hU-rlhQc4Ko.jpg",
-  description = "수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 수고했어 오늘도 "
-}) => (
+const BannerBook = ({ id, title, image, author }) => (
   <Container id={id}>
     <Title text={title} />
     <Image src={image} />
-    <Description text={description} />
+    <Author text={author} />
   </Container>
 );
 
 BannerBook.propTypes = {
-  id: PropTypes.string,
-  title: PropTypes.string,
-  image: PropTypes.string,
-  description: PropTypes.string
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired
 };
 
 export default BannerBook;

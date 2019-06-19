@@ -90,6 +90,7 @@ const DropMenu = styled.div`
   position: absolute;
   background-color: ${props => props.theme.mainColorBG};
   box-shadow: ${props => props.theme.boxShadow};
+  z-index: 1;
   top: 2em;
   left: -30px;
   right: 0px;

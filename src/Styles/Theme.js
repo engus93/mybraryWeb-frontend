@@ -1,4 +1,9 @@
 // Theme variables
+const hideText = `
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+`;
 
 // Styles Theme
 export default {
@@ -8,6 +13,7 @@ export default {
   boxBorder: "1px solid #e6e6e6",
   borderRadius: "4px",
   transitionOpt: "0.3s ease all",
+  hideText,
   // Color
   whiteColor: "#FAFAFA",
   lightWhiteColor: "#F3F3F3",
