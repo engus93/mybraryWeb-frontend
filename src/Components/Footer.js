@@ -13,7 +13,7 @@ const Footer = styled.footer`
 const FooterWrapper = styled.div`
   width: ${props => props.theme.wrapperWidth};
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 7px;
   display: grid;
   grid-template-rows: (3, 1fr);
   grid-row-gap: 20px;

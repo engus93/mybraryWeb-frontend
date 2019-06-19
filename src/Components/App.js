@@ -4,8 +4,8 @@ import { ThemeProvider } from "styled-components";
 import { HashRouter as Router } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useQuery } from "react-apollo-hooks";
+import "react-toastify/dist/ReactToastify.css";
 
 // My Files
 import Theme from "../Styles/Theme";
