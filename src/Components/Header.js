@@ -100,7 +100,7 @@ const DropMenu = styled.div`
   }
 `;
 
-const HomeMenu = styled(Home)`
+const HomeMenu = styled(Link)`
   display: none;
   margin-right: 10px;
   @media (max-width: 425px) {
@@ -187,9 +187,9 @@ export default () => {
   return (
     <Header>
       <HeaderWrapper>
-        <Link to="/">
-          <HomeMenu fill={"white"} />
-        </Link>
+        <HomeMenu to="/">
+          <Home fill={"white"} />
+        </HomeMenu>
         <LogoLink to="/">MYBRARY</LogoLink>
         <SearchInput placeholder={"Search"} {...searchBar} />
         <MyInfoBox ref={dropMenuBox}>

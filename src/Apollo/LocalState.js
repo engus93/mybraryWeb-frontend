@@ -6,15 +6,15 @@ export const defaults = {
 // Set and change the token and value about isLoggedIn
 export const resolvers = {
   Mutation: {
-    userLogIn: (_, { token }, { cache }) => {
+    userLogIn: async (_, { token }, { cache }) => {
       // Set the token at localstorage
       localStorage.setItem("token", token);
       // Chang the local state about isLoggedIn
-      cache.writeData({
-        data: {
-          isLoggedIn: true
-        }
-      });
+      // cache.writeData({
+      //   data: {
+      //     isLoggedIn: true
+      //   }
+      // });
       window.location = "/";
       return null;
     },
@@ -22,11 +22,11 @@ export const resolvers = {
       // Remove the token at localstorage
       localStorage.removeItem("token");
       // Chang the local state about isLoggedIn
-      cache.writeData({
-        data: {
-          isLoggedIn: false
-        }
-      });
+      // cache.writeData({
+      //   data: {
+      //     isLoggedIn: false
+      //   }
+      // });
       window.location = "/";
       return null;
     }
