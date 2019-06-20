@@ -2,7 +2,7 @@
 import React from "react";
 import MainPresenter from "./MainPresenter";
 import { useQuery } from "react-apollo-hooks";
-import { LIST_BOOK, MAIN_LIST_BOOK } from "./MainQueries";
+import { MAIN_LIST_BOOK } from "./MainQueries";
 
 // Import My Files
 export default () => {
@@ -11,7 +11,7 @@ export default () => {
     infinite: true,
     // autoplay: true,
     speed: 1000,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
@@ -33,7 +33,6 @@ export default () => {
   const categorySlider = {
     dots: true,
     infinite: true,
-    // autoplay: true,
     speed: 1000,
     autoplaySpeed: 3000,
     slidesToShow: 5,
@@ -65,15 +64,6 @@ export default () => {
       }
     ]
   };
-
-  // const {
-  //   data: { ListBook },
-  //   loading
-  // } = useQuery(LIST_BOOK, {
-  //   variables: {
-  //     type: "Bestseller"
-  //   }
-  // });
 
   const {
     data: { MainListBook },

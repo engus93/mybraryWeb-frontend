@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Span from "./Span";
-import { RightArrow } from "./Icons";
+import { RightArrow, LeftArrow } from "./Icons";
 
 const TopDiv = styled.div`
   display: flex;
@@ -60,10 +60,22 @@ const ListTitle = ({ title, moreLink }) => (
   <header>
     <TopDiv>
       <Title>{title}</Title>
-      <MoreLink to={`book-list/${moreLink}`}>
-        <More text={"더 보기"} />
-        <RightArrow size={10} fill={"#6a6a6a"} />
-      </MoreLink>
+      {moreLink && (
+        <MoreLink to={`book-list/${moreLink}`}>
+          {moreLink === "/" && (
+            <>
+              <More text={"뒤로가기"} />
+              <LeftArrow size={10} fill={"#6a6a6a"} />
+            </>
+          )}
+          {moreLink !== "/" && (
+            <>
+              <More text={"더 보기"} />
+              <RightArrow size={10} fill={"#6a6a6a"} />
+            </>
+          )}
+        </MoreLink>
+      )}
     </TopDiv>
     <BottomDiv>
       <Line />
@@ -72,8 +84,8 @@ const ListTitle = ({ title, moreLink }) => (
 );
 
 ListTitle.propTypes = {
-  title: PropTypes.string.isRequired
-  // moreLink: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  moreLink: PropTypes.string
 };
 
 export default ListTitle;

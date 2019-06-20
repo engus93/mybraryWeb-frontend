@@ -36,9 +36,9 @@ const Container = styled.article`
   }
 `;
 
-const Image = styled.div`
-  background: url(${props => props.src}) no-repeat center center;
-  background-size: contain;
+const Image = styled.img`
+  object-fit: contain;
+  object-position: center;
   margin-top: 20px;
   box-shadow: ${props => props.theme.boxShadow};
 

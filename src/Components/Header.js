@@ -161,8 +161,9 @@ export default () => {
 
   // Click Drop Menu
   const clickDropMenu = event => {
-    const { path } = event;
-    const checkCurrent = path.find(target => {
+    const eventPath = event.composedPath();
+
+    const checkCurrent = eventPath.find(target => {
       return target === dropMenuBox.current;
     });
     if (checkCurrent) {
