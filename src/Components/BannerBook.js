@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import Span from "./Span";
+import { Link } from "react-router-dom";
 
 const Container = styled.article`
   transition: 0.3s;
@@ -57,7 +58,6 @@ const Title = styled(Span)`
   /* branch */
   margin-top: ${props => (props.size === "sm" ? "20px" : "25px")};
   font-size: ${props => (props.size === "sm" ? "14px" : "16px")};
-
 `;
 
 const Author = styled(Span)`
@@ -70,15 +70,16 @@ const Author = styled(Span)`
   /* branch */
   margin: ${props => (props.size === "sm" ? "10px 0" : "12px 0")};
   font-size: ${props => (props.size === "sm" ? "10px" : "13px")};
-
 `;
 
 const BannerBook = ({ id, title, image, author, size = "lg" }) => (
-  <Container id={id} size={size}>
-    <Image src={image} size={size} />
-    <Title text={title} size={size} />
-    <Author text={author} size={size} />
-  </Container>
+  <Link to={id}>
+    <Container id={id} size={size}>
+      <Image src={image} size={size} />
+      <Title text={title} size={size} />
+      <Author text={author} size={size} />
+    </Container>
+  </Link>
 );
 
 BannerBook.propTypes = {

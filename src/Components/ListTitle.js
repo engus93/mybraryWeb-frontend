@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import Span from "./Span";
 import { RightArrow } from "./Icons";
 
-const Header = styled.header``;
-
 const TopDiv = styled.div`
   display: flex;
   align-items: center;
@@ -59,10 +57,10 @@ const Line = styled.div`
 `;
 
 const ListTitle = ({ title, moreLink }) => (
-  <Header>
+  <header>
     <TopDiv>
       <Title>{title}</Title>
-      <MoreLink to={title}>
+      <MoreLink to={`book-list/${moreLink}`}>
         <More text={"더 보기"} />
         <RightArrow size={10} fill={"#6a6a6a"} />
       </MoreLink>
@@ -70,7 +68,7 @@ const ListTitle = ({ title, moreLink }) => (
     <BottomDiv>
       <Line />
     </BottomDiv>
-  </Header>
+  </header>
 );
 
 ListTitle.propTypes = {

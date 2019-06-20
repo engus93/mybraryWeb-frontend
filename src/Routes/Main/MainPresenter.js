@@ -14,7 +14,7 @@ const Main = styled.div`
   padding-bottom: 40px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: ${props => props.theme.wrapperWidth};
   margin: 0 auto;
   @media (max-width: 1024px) {
@@ -44,6 +44,7 @@ export default ({
             <ListTitle
               title={`🏆 ${new Date().getFullYear()}년 ${new Date().getMonth() +
                 1}월 베스트셀러 🏆`}
+              moreLink={"bestSeller"}
             />
             <Slider {...bestSellerSlider}>
               {MainListBook.slice(0, 10).map(item => {
@@ -63,6 +64,7 @@ export default ({
             <ListTitle
               title={`🎁 ${new Date().getFullYear()}년 ${new Date().getMonth() +
                 1}월 신작 🎁`}
+              moreLink={"newBook"}
             />
             <Slider {...categorySlider}>
               {MainListBook.slice(10, 19).map(item => {
@@ -81,7 +83,7 @@ export default ({
           </section>
 
           <section>
-            <ListTitle title={`🥗 오늘 뭐 먹지? 🍣`} />
+            <ListTitle title={`🥗 오늘 뭐 먹지? 🍣`} moreLink={"Cook"} />
             <Slider {...categorySlider}>
               {MainListBook.slice(20, 29).map(item => {
                 return (
@@ -98,7 +100,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle title={`🚄 여행을 떠나요~ 🛬`} />
+            <ListTitle title={`🚄 여행을 떠나요~ 🛬`} moreLink={"travel"} />
             <Slider {...categorySlider}>
               {MainListBook.slice(30, 39).map(item => {
                 return (
@@ -115,7 +117,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle title={`🧘🏻‍♂️ 마음의 평화 🧘🏻‍♀️`} />
+            <ListTitle title={`🧘🏻‍♂️ 마음의 평화 🧘🏻‍♀️`} moreLink={"humanities"} />
             <Slider {...categorySlider}>
               {true &&
                 MainListBook.slice(40, 49).map(item => {
@@ -133,7 +135,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle title={`👨🏻‍💻 어제보다는 오늘 더! 👩🏻‍💻`} />
+            <ListTitle title={`👨🏻‍💻 어제보다는 오늘 더! 👩🏻‍💻`} moreLink={"self"} />
             <Slider {...categorySlider}>
               {true &&
                 MainListBook.slice(50, 59).map(item => {

@@ -16,6 +16,7 @@ export default createGlobalStyle`
     }
     a {
         text-decoration: none;
+        color: ${props => props.theme.blackColor};
     }
     input:focus{
         outline:none;
