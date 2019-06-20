@@ -86,7 +86,7 @@ const DropMenuResponsive = styled(DropHamburger)`
   }
 `;
 
-const DropMenu = styled.div`
+const DropMenu = styled.nav`
   position: absolute;
   background-color: ${props => props.theme.mainColorBG};
   box-shadow: ${props => props.theme.boxShadow};
@@ -161,8 +161,9 @@ export default () => {
 
   // Click Drop Menu
   const clickDropMenu = event => {
-    const { path } = event;
-    const checkCurrent = path.find(target => {
+    const eventPath = event.composedPath();
+
+    const checkCurrent = eventPath.find(target => {
       return target === dropMenuBox.current;
     });
     if (checkCurrent) {

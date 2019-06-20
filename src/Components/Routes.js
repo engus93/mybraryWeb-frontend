@@ -13,18 +13,20 @@ import SeeAllPost from "../Routes/SeeAllPost";
 import SeeBestPost from "../Routes/SeeBestPost";
 import SeeMyPost from "../Routes/SeeMyPost";
 import WritePost from "../Routes/WritePost";
+import BookList from "../Routes/BookList";
 
 // When Logged In
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Main} />
-    <Route exact path="/bookDetail" component={BookDetail} />
     <Route exact path="/myPage" component={MyPage} />
     <Route exact path="/search" component={Search} />
     <Route exact path="/seeAllPost" component={SeeAllPost} />
     <Route exact path="/seeBestPost" component={SeeBestPost} />
     <Route exact path="/seeMyPost" component={SeeMyPost} />
     <Route exact path="/writePost" component={WritePost} />
+    <Route exact path="/book-list/:gener" component={BookList} />
+    <Route exact path="/:itemId" component={BookDetail} />
     <Redirect from="*" to="/" />
   </Switch>
 );
