@@ -12,6 +12,18 @@ export const DownArrow = ({ size = 24, fill = "white" }) => (
   </svg>
 );
 
+export const RightArrow = ({ size = 24, fill = "white" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill={fill}
+  >
+    <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+  </svg>
+);
+
 export const Person = ({ size = 24, fill = "black" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

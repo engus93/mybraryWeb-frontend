@@ -86,7 +86,7 @@ const DropMenuResponsive = styled(DropHamburger)`
   }
 `;
 
-const DropMenu = styled.div`
+const DropMenu = styled.nav`
   position: absolute;
   background-color: ${props => props.theme.mainColorBG};
   box-shadow: ${props => props.theme.boxShadow};
