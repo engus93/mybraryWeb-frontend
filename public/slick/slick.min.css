@@ -8,6 +8,7 @@
 }
 
 .slick-slider {
+    outline: none;
     box-sizing: border-box;
     -webkit-user-select: none;
     -moz-user-select: none;

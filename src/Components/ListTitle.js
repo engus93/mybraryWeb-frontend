@@ -1,3 +1,4 @@
+// Import Modules
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -22,7 +23,7 @@ const Title = styled.h2`
   font-size: 20px;
   font-weight: 600;
   @media (max-width: 576px) {
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 
@@ -57,12 +58,11 @@ const Line = styled.div`
   top: -1px;
 `;
 
-const ListTitle = () => (
+const ListTitle = ({ title, moreLink }) => (
   <Header>
     <TopDiv>
-      <Title>{`🚴🏻‍♂️ ${new Date().getFullYear()}년 ${new Date().getMonth() +
-        1}월 화제의 신작!!`}</Title>
-      <MoreLink to={"///"}>
+      <Title>{title}</Title>
+      <MoreLink to={title}>
         <More text={"더 보기"} />
         <RightArrow size={10} fill={"#6a6a6a"} />
       </MoreLink>
@@ -73,6 +73,9 @@ const ListTitle = () => (
   </Header>
 );
 
-ListTitle.propTypes = {};
+ListTitle.propTypes = {
+  title: PropTypes.string.isRequired
+  // moreLink: PropTypes.string.isRequired
+};
 
 export default ListTitle;
