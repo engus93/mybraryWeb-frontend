@@ -7,6 +7,14 @@ import Slider from "react-slick";
 import BannerBook from "../../Components/BannerBook";
 import Loader from "../../Components/Loader";
 import ListTitle from "../../Components/ListTitle";
+import {
+  bestSeller,
+  newBook,
+  cook,
+  travel,
+  humanities,
+  selfDevelopment
+} from "./../../Styles/Variables";
 
 // Style Components
 const Main = styled.div`
@@ -41,11 +49,7 @@ export default ({
       <Main>
         <Wrapper>
           <section>
-            <ListTitle
-              title={`🏆 ${new Date().getFullYear()}년 ${new Date().getMonth() +
-                1}월 베스트셀러 🏆`}
-              moreLink={"bestSeller"}
-            />
+            <ListTitle title={bestSeller} moreLink={"bestSeller"} />
             <Slider {...bestSellerSlider}>
               {MainListBook.slice(0, 10).map(item => {
                 return (
@@ -61,11 +65,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle
-              title={`🎁 ${new Date().getFullYear()}년 ${new Date().getMonth() +
-                1}월 신작 🎁`}
-              moreLink={"newBook"}
-            />
+            <ListTitle title={newBook} moreLink={"newBook"} />
             <Slider {...categorySlider}>
               {MainListBook.slice(10, 19).map(item => {
                 return (
@@ -83,7 +83,7 @@ export default ({
           </section>
 
           <section>
-            <ListTitle title={`🥗 오늘 뭐 먹지? 🍣`} moreLink={"Cook"} />
+            <ListTitle title={cook} moreLink={"cook"} />
             <Slider {...categorySlider}>
               {MainListBook.slice(20, 29).map(item => {
                 return (
@@ -100,7 +100,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle title={`🚄 여행을 떠나요~ 🛬`} moreLink={"travel"} />
+            <ListTitle title={travel} moreLink={"travel"} />
             <Slider {...categorySlider}>
               {MainListBook.slice(30, 39).map(item => {
                 return (
@@ -117,7 +117,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle title={`🧘🏻‍♂️ 마음의 평화 🧘🏻‍♀️`} moreLink={"humanities"} />
+            <ListTitle title={humanities} moreLink={"humanities"} />
             <Slider {...categorySlider}>
               {true &&
                 MainListBook.slice(40, 49).map(item => {
@@ -135,7 +135,7 @@ export default ({
             </Slider>
           </section>
           <section>
-            <ListTitle title={`👨🏻‍💻 어제보다는 오늘 더! 👩🏻‍💻`} moreLink={"self"} />
+            <ListTitle title={selfDevelopment} moreLink={"self-development"} />
             <Slider {...categorySlider}>
               {true &&
                 MainListBook.slice(50, 59).map(item => {

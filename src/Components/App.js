@@ -34,7 +34,7 @@ export default () => {
           <AppRouter isLoggedIn={isLoggedIn} />
           {isLoggedIn && <Footer />}
         </Router>
-        <ToastContainer autoClose={2000} position={"bottom-left"} />
+        <ToastContainer autoClose={2500} position={"bottom-left"} />
       </>
     </ThemeProvider>
   );

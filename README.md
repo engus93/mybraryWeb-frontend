@@ -90,3 +90,11 @@ yarn add prop-types
 ```
 
 > `PropTypes`를 사용할 수 있도록 도와준다.
+
+### react-lines-ellipsis
+
+```bash
+yarn add react-lines-ellipsis
+```
+
+> `react-lines-ellipsis`는 글자의 줄을 제어하여 일정 글자 이상이 될 때 `...`으로 바꿔준다
