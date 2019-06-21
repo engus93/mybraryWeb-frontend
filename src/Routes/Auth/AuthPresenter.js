@@ -6,7 +6,7 @@ import Helmet from "react-helmet";
 // Import My Files
 import Span from "./../../Components/Span";
 import AnimationInput from "../../Components/AnimationInput";
-import { fadeIn } from "../../Styles/KeyFrames";
+import { fadeIn } from "./../../Styles/Variables";
 
 // Styled Components
 

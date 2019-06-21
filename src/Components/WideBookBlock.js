@@ -2,11 +2,11 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Link, withRouter } from "react-router-dom";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
 // Import My Files
-import Span from "./Span";
 import { Write } from "./Icons";
 
 const ResponsiveLines = responsiveHOC()(LinesEllipsis);
@@ -14,6 +14,9 @@ const ResponsiveLines = responsiveHOC()(LinesEllipsis);
 const Container = styled.article`
   width: 90%;
   margin: 30px auto;
+`;
+
+const ArticleLink = styled(Link)`
   padding: 12px 15px;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -91,6 +94,7 @@ const Description = styled(ResponsiveLines)`
   letter-spacing: 0.5px;
   line-height: 1.3rem;
   @media (max-width: 576px) {
+    font-size: 12px;
     text-align: center;
   }
 `;
@@ -119,55 +123,74 @@ const WriteIcon = styled(Write)`
   margin-right: 5px;
 `;
 
-const WideBookBlock = ({
-  title,
-  author,
-  cover,
-  pubDate,
-  description,
-  publisher,
-  categoryName
-}) => {
-  console.log(categoryName);
-  const genreList = categoryName.split(">");
+const WideBookBlock = withRouter(
+  ({
+    id,
+    title,
+    author,
+    cover,
+    pubDate,
+    description,
+    publisher,
+    categoryName,
+    history
+  }) => {
+    const genreList = categoryName.split(">");
 
-  return (
-    <Container>
-      <LeftBox>
-        <Image src={cover} />
-      </LeftBox>
-      <RightBox>
-        <div>
-          <Title>{title}</Title>
-          <SubContents>{author}</SubContents>
-          <SubContents>{pubDate}</SubContents>
-          <SubContents>{publisher}</SubContents>
-          <SubContents>
-            {genreList &&
-              genreList.length > 0 &&
-              genreList
-                .slice(0, 3)
-                .map((word, index) => <Genre key={index}>{word}</Genre>)}
-          </SubContents>
-          <Description
-            text={description}
-            maxLine="3"
-            ellipsis="..."
-            trimRight
-            basedOn="letters"
-          />
-        </div>
-        <WriteBox>
-          <WirteBtn>
-            <WriteIcon size={16} />
-            작성하기
-          </WirteBtn>
-        </WriteBox>
-      </RightBox>
-    </Container>
-  );
+    return (
+      <Container>
+        <ArticleLink to={`/${id}`}>
+          <LeftBox>
+            <Image src={cover} />
+          </LeftBox>
+          <RightBox>
+            <div>
+              <Title>{title}</Title>
+              <SubContents>{author}</SubContents>
+              <SubContents>{pubDate}</SubContents>
+              <SubContents>{publisher}</SubContents>
+              <SubContents>
+                {genreList &&
+                  genreList.length > 0 &&
+                  genreList
+                    .slice(0, 3)
+                    .map((word, index) => <Genre key={index}>{word}</Genre>)}
+              </SubContents>
+              <Description
+                text={description}
+                maxLine="3"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              />
+            </div>
+            <WriteBox>
+              <WirteBtn
+                onClick={e => {
+                  e.preventDefault();
+                  history.push("/writePost");
+                }}
+              >
+                <WriteIcon size={16} />
+                작성하기
+              </WirteBtn>
+            </WriteBox>
+          </RightBox>
+        </ArticleLink>
+      </Container>
+    );
+  }
+);
+
+WideBookBlock.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  cover: PropTypes.string.isRequired,
+  pubDate: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  publisher: PropTypes.string.isRequired,
+  categoryName: PropTypes.string.isRequired
 };
-
-WideBookBlock.propTypes = {};
 
 export default WideBookBlock;
