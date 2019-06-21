@@ -66,6 +66,12 @@ export default () => {
         </FlexCenterBox>
         <FlexCenterBox>
           <FooterSpan
+            text={`도서 관련 정보들은 알라딘 API를 사용하였습니다.`}
+            fontSize={12}
+          />
+        </FlexCenterBox>
+        <FlexCenterBox>
+          <FooterSpan
             text={`Copyright ⓒ ${new Date().getFullYear()} · MYBRARY All Rights
             Reserved.`}
             fontSize={12}

@@ -21,18 +21,36 @@ const Input = ({
   value,
   onChange,
   type = "text",
-  className
+  className,
+  disabled = false
 }) => (
-  <Container
-    id={id}
-    placeholder={placeholder}
-    required={required}
-    value={value}
-    onChange={onChange}
-    type={type}
-    className={className}
-    autoComplete="off"
-  />
+  <>
+    {disabled && (
+      <Container
+        id={id}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={onChange}
+        type={type}
+        className={className}
+        autoComplete="off"
+        disabled
+      />
+    )}
+    {!disabled && (
+      <Container
+        id={id}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={onChange}
+        type={type}
+        className={className}
+        autoComplete="off"
+      />
+    )}
+  </>
 );
 
 // PropTypes Structure
@@ -41,8 +59,9 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  type: PropTypes.string
+  onChange: PropTypes.func,
+  type: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 export default Input;

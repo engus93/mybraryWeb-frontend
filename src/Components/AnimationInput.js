@@ -47,14 +47,15 @@ const AniLabel = styled(Label)`
 `;
 
 // Render
-export default ({
+const AnimationInput = ({
   id,
   placeholder,
   required = true,
   value,
   onChange,
   type = "text",
-  labelText
+  labelText,
+  disabled
 }) => {
   const [ani, setAni] = useState(false);
 
@@ -75,8 +76,11 @@ export default ({
         value={value}
         onChange={onChange}
         type={type}
+        disabled={disabled}
       />
       <AniLabel htmlFor={id} labelText={labelText} ani={ani} />
     </Container>
   );
 };
+
+export default AnimationInput;
