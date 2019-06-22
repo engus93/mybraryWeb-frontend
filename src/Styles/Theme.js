@@ -25,7 +25,7 @@ export default {
   lightWhiteColor: "#F3F3F3",
   whiteBG: "#F8F8F8",
   blackColor: "#262626",
-  mainColor: "#f3aa42e8",
+  mainColor: "#f3aa42",
   mainColorHover: "#f3aa42b5",
   mainColorBG: "#FFFAF0"
 };

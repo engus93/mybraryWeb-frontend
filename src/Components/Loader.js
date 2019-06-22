@@ -18,7 +18,7 @@ const Animation = keyframes`
 const Container = styled.div`
   animation: ${Animation} 1s linear infinite;
   width: 100%;
-  height: ${props => (props.paging ? "20vh" : "80vh")};
+  height: ${props => (props.paging ? "20vh" : "90vh")};
   display: flex;
   justify-content: center;
   align-items: center;
