@@ -60,21 +60,21 @@ const ListTitle = ({ title, moreLink }) => (
   <header>
     <TopDiv>
       <Title>{title}</Title>
-      {moreLink && (
-        <MoreLink to={`book-list/${moreLink}`}>
-          {moreLink === "/" && (
-            <>
-              <More text={"뒤로가기"} />
-              <LeftArrow size={10} fill={"#6a6a6a"} />
-            </>
-          )}
-          {moreLink !== "/" && (
-            <>
-              <More text={"더 보기"} />
-              <RightArrow size={10} fill={"#6a6a6a"} />
-            </>
-          )}
-        </MoreLink>
+      {moreLink && moreLink === "/" && (
+        <>
+          <MoreLink to={moreLink}>
+            <More text={"뒤로가기"} />
+            <LeftArrow size={10} fill={"#6a6a6a"} />
+          </MoreLink>
+        </>
+      )}{" "}
+      {moreLink && moreLink !== "/" && (
+        <>
+          <MoreLink to={`book-list/${moreLink}`}>
+            <More text={"더 보기"} />
+            <RightArrow size={10} fill={"#6a6a6a"} />
+          </MoreLink>
+        </>
       )}
     </TopDiv>
     <BottomDiv>
