@@ -30,17 +30,18 @@ const GithubLink = styled.a`
   justify-content: center;
 `;
 
-const FooterSpan = styled(Span)`
-  font-weight: 600;
-  color: white;
-  user-select: none;
-`;
-
 const FlexCenterBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   display: flex;
+  text-align: center;
+`;
+
+const FooterSpan = styled(Span)`
+  font-weight: 600;
+  color: white;
+  user-select: none;
 `;
 
 export default () => {

@@ -7,7 +7,6 @@ import Helmet from "react-helmet";
 import Span from "./../../Components/Span";
 import AnimationInput from "../../Components/AnimationInput";
 import { fadeIn } from "./../../Styles/Variables";
-import { toast } from "react-toastify";
 
 // Styled Components
 
