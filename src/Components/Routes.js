@@ -14,21 +14,24 @@ import SeeBestPost from "../Routes/SeeBestPost";
 import SeeMyPost from "../Routes/SeeMyPost";
 import WritePost from "../Routes/WritePost";
 import BookList from "../Routes/BookList";
+import ScrollToTop from "./ScrollToTop";
 
 // When Logged In
 const LoggedInRoutes = () => (
-  <Switch>
-    <Route exact path="/" component={Main} />
-    <Route exact path="/myPage" component={MyPage} />
-    <Route exact path="/search" component={Search} />
-    <Route exact path="/seeAllPost" component={SeeAllPost} />
-    <Route exact path="/seeBestPost" component={SeeBestPost} />
-    <Route exact path="/seeMyPost" component={SeeMyPost} />
-    <Route exact path="/writePost" component={WritePost} />
-    <Route exact path="/book-list/:gener" component={BookList} />
-    <Route exact path="/:itemId" component={BookDetail} />
-    <Redirect from="*" to="/" />
-  </Switch>
+  <ScrollToTop>
+    <Switch>
+      <Route exact path="/" component={Main} />
+      <Route exact path="/myPage" component={MyPage} />
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/seeAllPost" component={SeeAllPost} />
+      <Route exact path="/seeBestPost" component={SeeBestPost} />
+      <Route exact path="/seeMyPost" component={SeeMyPost} />
+      <Route exact path="/writePost" component={WritePost} />
+      <Route exact path="/book-list/:gener" component={BookList} />
+      <Route exact path="/:itemId" component={BookDetail} />
+      <Redirect from="*" to="/" />
+    </Switch>
+  </ScrollToTop>
 );
 // When Logged Out
 

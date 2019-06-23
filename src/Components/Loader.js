@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Library } from "./Icons";
+import PropTypes from "prop-types";
 
 const Animation = keyframes`
 0%{
@@ -14,17 +15,26 @@ const Animation = keyframes`
 }
 `;
 
-const Loader = styled.div`
+const Container = styled.div`
   animation: ${Animation} 1s linear infinite;
   width: 100%;
-  height: 80vh;
+  height: ${props => (props.paging ? "20vh" : "90vh")};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export default () => (
-  <Loader>
-    <Library size={48} />
-  </Loader>
-);
+const Loader = ({ size = 48, paging = false }) => {
+  return (
+    <Container paging={paging}>
+      <Library size={size} />
+    </Container>
+  );
+};
+
+Loader.propTpyes = {
+  size: PropTypes.number,
+  paging: PropTypes.bool
+};
+
+export default Loader;

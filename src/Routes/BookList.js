@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery, useMutation } from "react-apollo-hooks";
 
 // Import My Files
 import ListTitle from "./../Components/ListTitle";
@@ -34,9 +34,47 @@ const Wrapper = styled.section`
   }
 `;
 
+const CenterSortBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+`;
+
+const PagingBtb = styled.button`
+  font-size: 16px;
+  padding: 5px 15px;
+  background: ${props => props.theme.mainColor};
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
+/* Apollo Client */
+// 처음에 리스트 불러오기
 export const LIST_BOOK = gql`
   query ListBook($type: String!, $categoryId: Int) {
     ListBook(type: $type, categoryId: $categoryId) {
+      itemId
+      title
+      author
+      cover
+      pubDate
+      description
+      publisher
+      categoryName
+    }
+  }
+`;
+
+// 페이징 리스트 불러오기
+export const LIST_BOOK_PAGING = gql`
+  mutation ListBookPaging($type: String!, $categoryId: Int, $page: Int!) {
+    ListBookPaging(type: $type, categoryId: $categoryId, page: $page) {
       itemId
       title
       author
@@ -54,7 +92,31 @@ export default ({ match: { params } }) => {
   const [type, setType] = useState("dontSearch");
   const [categoryId, setCategoryId] = useState(400);
   const [title, setTitle] = useState("");
+  const [page, setPage] = useState(2);
+  // 추가된 페이징 리스트
+  const [listBookMore, setListBookMore] = useState([]);
+  const [pagingLoading, setPagingLoading] = useState(false);
 
+  /* Apollo */
+  const {
+    data: { ListBook },
+    loading
+  } = useQuery(LIST_BOOK, {
+    variables: {
+      type,
+      categoryId
+    }
+  });
+
+  const MutationListBookPaging = useMutation(LIST_BOOK_PAGING, {
+    variables: {
+      type,
+      categoryId,
+      page
+    }
+  });
+
+  // 처음에 어떤 데이터 가져올건지 분류
   try {
     useEffect(() => {
       window.scrollTo(0, 0);
@@ -102,15 +164,25 @@ export default ({ match: { params } }) => {
     toast.error(errorMessage);
   }
 
-  const {
-    data: { ListBook },
-    loading
-  } = useQuery(LIST_BOOK, {
-    variables: {
-      type,
-      categoryId
-    }
-  });
+  // Paging process function
+  const pagingProcess = async ({ target }) => {
+    // 버튼 중복 클릭 막기
+    target.disabled = true;
+    // 로딩 띄워주기
+    setPagingLoading(true);
+    // 데이터 가져오기
+    const {
+      data: { ListBookPaging }
+    } = await MutationListBookPaging();
+    // 페이지 늘려주기
+    setPage(page + 1);
+    // 데이터 저장하기
+    setListBookMore([...listBookMore, ...ListBookPaging]);
+    // 로딩 끝내기
+    setPagingLoading(false);
+    // 버튼 중복 클릭 해제
+    target.disabled = false;
+  };
 
   return (
     <BookList>
@@ -133,6 +205,24 @@ export default ({ match: { params } }) => {
                   categoryName={book.categoryName}
                 />
               ))}
+            {listBookMore &&
+              listBookMore.map(book => (
+                <WideBookBlock
+                  key={book.itemId}
+                  id={book.itemId}
+                  title={book.title}
+                  author={book.author}
+                  cover={book.cover}
+                  pubDate={book.pubDate}
+                  description={book.description}
+                  publisher={book.publisher}
+                  categoryName={book.categoryName}
+                />
+              ))}
+            {pagingLoading && <Loader paging={true} />}
+            <CenterSortBox>
+              <PagingBtb onClick={pagingProcess}>More</PagingBtb>
+            </CenterSortBox>
           </>
         )}
       </Wrapper>

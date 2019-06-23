@@ -16,12 +16,14 @@ import { Home } from "./Icons";
 
 // Style Components
 const Header = styled.header`
+  position: fixed;
+  z-index: 10;
   background-color: ${props => props.theme.mainColor};
   width: 100%;
   height: 50px;
 `;
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.section`
   width: ${props => props.theme.wrapperWidth};
   height: 100%;
   margin: 0 auto;
@@ -130,6 +132,10 @@ const LogoutBtn = styled.button`
   align-items: center;
 `;
 
+const SpaceBox = styled.div`
+  height: 50px;
+`;
+
 // Apollo Client
 const ME = gql`
   {
@@ -186,51 +192,54 @@ export default () => {
   const logOut = useMutation(LOG_OUT);
 
   return (
-    <Header>
-      <HeaderWrapper>
-        <HomeMenu to="/">
-          <Home />
-        </HomeMenu>
-        <LogoLink to="/">MYBRARY</LogoLink>
-        <SearchInput placeholder={"Search"} {...searchBar} />
-        <MyInfoBox ref={dropMenuBox}>
-          <ClickMenu>
-            {me && me.username ? (
-              <UserName fontSize={14} text={me.username} />
-            ) : (
-              <UserName fontSize={14} text={"Loading.."} />
-            )}
-            <DownArrow size={12} />
-          </ClickMenu>
-          <DropMenuResponsive />
-          <DropMenu showing={drop}>
-            <MenuCategoty>
-              <MenuLink to={"/myPage"}>
-                <Person size={14} />
-                <Span text={"My Page"} marginValue={"0 0 0 7px"} />
-              </MenuLink>
-            </MenuCategoty>
-            <MenuCategoty>
-              <MenuLink to={"/seeMyPost"}>
-                <Library size={14} />
-                <Span text={"Mybrary"} marginValue={"0 0 0 7px"} />
-              </MenuLink>
-            </MenuCategoty>
-            <MenuCategoty>
-              <MenuLink to={"/seeAllPost"}>
-                <OtherPosts size={14} />
-                <Span text={"Other Posts"} marginValue={"0 0 0 7px"} />
-              </MenuLink>
-            </MenuCategoty>
-            <MenuCategoty>
-              <LogoutBtn onClick={logOut}>
-                <LogOut size={14} />
-                <Span text={"Log Out"} marginValue={"0 0 0 7px"} />
-              </LogoutBtn>
-            </MenuCategoty>
-          </DropMenu>
-        </MyInfoBox>
-      </HeaderWrapper>
-    </Header>
+    <>
+      <Header>
+        <HeaderWrapper>
+          <HomeMenu to="/">
+            <Home />
+          </HomeMenu>
+          <LogoLink to="/">MYBRARY</LogoLink>
+          <SearchInput placeholder={"Search"} {...searchBar} />
+          <MyInfoBox ref={dropMenuBox}>
+            <ClickMenu>
+              {me && me.username ? (
+                <UserName fontSize={14} text={me.username} />
+              ) : (
+                <UserName fontSize={14} text={"Loading.."} />
+              )}
+              <DownArrow size={12} />
+            </ClickMenu>
+            <DropMenuResponsive />
+            <DropMenu showing={drop}>
+              <MenuCategoty>
+                <MenuLink to={"/myPage"}>
+                  <Person size={14} />
+                  <Span text={"My Page"} marginValue={"0 0 0 7px"} />
+                </MenuLink>
+              </MenuCategoty>
+              <MenuCategoty>
+                <MenuLink to={"/seeMyPost"}>
+                  <Library size={14} />
+                  <Span text={"Mybrary"} marginValue={"0 0 0 7px"} />
+                </MenuLink>
+              </MenuCategoty>
+              <MenuCategoty>
+                <MenuLink to={"/seeAllPost"}>
+                  <OtherPosts size={14} />
+                  <Span text={"Other Posts"} marginValue={"0 0 0 7px"} />
+                </MenuLink>
+              </MenuCategoty>
+              <MenuCategoty>
+                <LogoutBtn onClick={logOut}>
+                  <LogOut size={14} />
+                  <Span text={"Log Out"} marginValue={"0 0 0 7px"} />
+                </LogoutBtn>
+              </MenuCategoty>
+            </DropMenu>
+          </MyInfoBox>
+        </HeaderWrapper>
+      </Header>
+      <SpaceBox />
+    </>
   );
 };
