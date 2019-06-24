@@ -97,4 +97,12 @@ yarn add prop-types
 yarn add react-lines-ellipsis
 ```
 
-> `react-lines-ellipsis`는 글자의 줄을 제어하여 일정 글자 이상이 될 때 `...`으로 바꿔준다
+> `react-lines-ellipsis`는 글자의 줄을 제어하여 일정 글자 이상이 될 때 `...`으로 바꿔준다.
+
+### unescape
+
+```bash
+yarn add unescape
+```
+
+> `unescape`는 특수 문자들을 치환해서 String으로 변환해준다.

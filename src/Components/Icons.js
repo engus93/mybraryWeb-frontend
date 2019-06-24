@@ -1,7 +1,8 @@
 import React from "react";
 
-export const DownArrow = ({ size = 24, fill = "white" }) => (
+export const DownArrow = ({ size = 24, fill = "white", className }) => (
   <svg
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
@@ -33,6 +34,19 @@ export const RightArrow = ({ size = 24, fill = "white" }) => (
     fill={fill}
   >
     <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+  </svg>
+);
+
+export const UpArrow = ({ size = 24, fill = "white", className }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill={fill}
+    viewBox="0 0 24 24"
+  >
+    <path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z" />
   </svg>
 );
 

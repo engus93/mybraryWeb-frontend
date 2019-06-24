@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-apollo-hooks";
+import { withRouter } from "react-router-dom";
 
 // Import My Files
 import { DownArrow, Person, OtherPosts, LogOut, DropHamburger } from "./Icons";
@@ -42,17 +43,23 @@ const LogoLink = styled(Link)`
   font-weight: 600;
   margin-right: 10px;
   width: 100px;
+  @media (max-width: 576px) {
+    font-size: 18px;
+    width: 90px;
+  }
   @media (max-width: 425px) {
     display: none;
   }
 `;
 
-const SearchInput = styled(Input)`
+const SearchForm = styled.form`
   width: 50%;
   @media (max-width: 425px) {
     width: 70%;
   }
 `;
+
+const SearchInput = styled(Input)``;
 
 const MyInfoBox = styled.div`
   display: flex;
@@ -151,7 +158,7 @@ const LOG_OUT = gql`
   }
 `;
 
-export default () => {
+export default withRouter(({ history }) => {
   // My Info Query
   const {
     data: { me }
@@ -191,6 +198,12 @@ export default () => {
   // Log Out Mutation
   const logOut = useMutation(LOG_OUT);
 
+  /* Search Process */
+  const onSubmitForSearch = event => {
+    event.preventDefault();
+    history.push(`/search?term=${searchBar.value}`);
+  };
+
   return (
     <>
       <Header>
@@ -199,7 +212,9 @@ export default () => {
             <Home />
           </HomeMenu>
           <LogoLink to="/">MYBRARY</LogoLink>
-          <SearchInput placeholder={"Search"} {...searchBar} />
+          <SearchForm onSubmit={onSubmitForSearch}>
+            <SearchInput placeholder={"Search"} {...searchBar} />
+          </SearchForm>
           <MyInfoBox ref={dropMenuBox}>
             <ClickMenu>
               {me && me.username ? (
@@ -242,4 +257,4 @@ export default () => {
       <SpaceBox />
     </>
   );
-};
+});
