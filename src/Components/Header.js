@@ -42,6 +42,10 @@ const LogoLink = styled(Link)`
   font-weight: 600;
   margin-right: 10px;
   width: 100px;
+  @media (max-width: 576px) {
+    font-size: 18px;
+    width: 90px;
+  }
   @media (max-width: 425px) {
     display: none;
   }
