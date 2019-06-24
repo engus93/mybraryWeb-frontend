@@ -3,10 +3,14 @@ import React from "react";
 import styled from "styled-components";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
+import decode from "unescape";
 
 // Import My Files
 import { Write } from "./../Components/Icons";
 import DetailDescriptionBox from "../Components/DetailDescriptionBox";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo-hooks";
+import Loader from "./../Components/Loader";
 
 const ResponsiveLines = responsiveHOC()(LinesEllipsis);
 
@@ -55,10 +59,14 @@ const HeaderDivideLeft = styled.div`
 `;
 
 const HeaderDivideRight = styled.div`
-  margin: 0 25px;
+  width: 100%;
   color: #fff;
+  margin: 0 25px;
   @media (max-width: 1024px) {
     margin: 0 20px;
+  }
+  @media (max-width: 576px) {
+    margin: 0;
   }
 `;
 
@@ -77,6 +85,8 @@ const BookImg = styled.img`
 `;
 
 const BookTitle = styled(ResponsiveLines)`
+  display: flex;
+  align-items: center;
   color: white;
   font-size: 24px;
   margin-bottom: 7px;
@@ -91,9 +101,9 @@ const BookTitle = styled(ResponsiveLines)`
   @media (max-width: 576px) {
     font-weight: 600;
     font-size: 16px;
-    text-align: center;
+    justify-content: center;
   }
-  @media (max-width: 576px) {
+  @media (max-width: 425px) {
     font-size: 14px;
   }
 `;
@@ -136,13 +146,16 @@ const Genre = styled.span`
 
 const WriteBox = styled.div`
   text-align: right;
-  margin: 10px 15px 0 0px;
+  margin: 10px 15px 0 0;
 
   @media (max-width: 1024px) {
-    margin: 32px 15px 0 0px;
+    margin: 32px 15px 0 0;
   }
   @media (max-width: 768px) {
-    margin: 12px 15px 0 0px;
+    margin: 12px 15px 0 0;
+  }
+  @media (max-width: 576px) {
+    margin: 12px 30px 0;
   }
 `;
 
@@ -171,59 +184,115 @@ const WriteIcon = styled(Write)`
   margin-right: 7px;
 `;
 
-export default () => {
+// Apollo Client
+const DETAIL_BOOK = gql`
+  query DetailBook($itemId: Int!) {
+    DetailBook(itemId: $itemId) {
+      itemId
+      title
+      author
+      pubDate
+      description
+      cover
+      categoryName
+      publisher
+      fullDescription
+      fullDescription2
+      subInfo {
+        toc
+        story
+        authors {
+          authorName
+          authorInfo
+        }
+      }
+    }
+  }
+`;
+
+export default ({
+  match: {
+    params: { itemId }
+  }
+}) => {
+  const {
+    data: { DetailBook },
+    loading
+  } = useQuery(DETAIL_BOOK, {
+    variables: {
+      itemId: Number(itemId)
+    }
+  });
+  console.log(DetailBook);
+
   return (
-    <BookDetail>
-      <Header>
-        <Container>
-          <HeaderWrapper>
-            <HeaderDivideLeft>
-              <BookImg
-                src={
-                  "https://gpbqopmikmnr903351.cdn.ntruss.com/37000k_38000k/d6caf7e5074a215b0c4ad43e28d06afd.jpg?type=w&w=200&extopt=3&quality=100"
-                }
+    <>
+      {loading && <Loader />}
+      {!loading && (
+        <BookDetail>
+          <Header>
+            <Container>
+              <HeaderWrapper>
+                <HeaderDivideLeft>
+                  <BookImg src={DetailBook.cover} />
+                </HeaderDivideLeft>
+                <HeaderDivideRight>
+                  <div>
+                    <BookTitle
+                      text={DetailBook.title}
+                      maxLine="2"
+                      ellipsis="..."
+                      trimRight
+                      basedOn="letters"
+                    />
+                    <SubContents>{DetailBook.author}</SubContents>
+                    <SubContents>{DetailBook.pubDate}</SubContents>
+                    <SubContents>{DetailBook.publisher}</SubContents>
+                    <SubContents>
+                      {DetailBook.categoryName
+                        .split(">")
+                        .slice(0, 3)
+                        .map((word, index) => (
+                          <Genre key={index}>{word}</Genre>
+                        ))}
+                    </SubContents>
+                  </div>
+                  <WriteBox>
+                    <WirteBtn>
+                      <WriteIcon size={16} />
+                      작성하기
+                    </WirteBtn>
+                  </WriteBox>
+                </HeaderDivideRight>
+              </HeaderWrapper>
+            </Container>
+          </Header>
+          <Container>
+            <Section>
+              <DetailDescriptionBox
+                title={"책 소개"}
+                html={decode(DetailBook.fullDescription)}
               />
-            </HeaderDivideLeft>
-            <HeaderDivideRight>
-              <div>
-                <BookTitle
-                  text={`박막례, 이대로 죽을 순 없다 - 독보적 유튜버 박막례와 천재 PD 손녀 김유라의 말도 안 되게 뒤집힌 신나는 인생!`}
-                  maxLine="2"
-                  ellipsis="..."
-                  trimRight
-                  basedOn="letters"
-                />
-                <SubContents>{"박막례, 김유라 (지은이)"}</SubContents>
-                <SubContents>{"2019-06-03"}</SubContents>
-                <SubContents>{"ㅋㅋㅋ"}</SubContents>
-                <SubContents>
-                  {["국내도서", "에세이", "명사에세이", "기타"].map(
-                    (word, index) => (
-                      <Genre key={index}>{word}</Genre>
-                    )
-                  )}
-                </SubContents>
-              </div>
-              <WriteBox>
-                <WirteBtn>
-                  <WriteIcon size={16} />
-                  작성하기
-                </WirteBtn>
-              </WriteBox>
-            </HeaderDivideRight>
-          </HeaderWrapper>
-        </Container>
-      </Header>
-      <Container>
-        <Section>
-          <DetailDescriptionBox
-            title={"책 소개"}
-            text={
-              "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
-            }
-          />
-        </Section>
-      </Container>
-    </BookDetail>
+              <DetailDescriptionBox
+                title={"목차"}
+                html={decode(DetailBook.subInfo.toc)}
+              />
+              <DetailDescriptionBox
+                title={"출판사 제공 책 소개"}
+                html={decode(DetailBook.fullDescription2)}
+              />
+              {DetailBook.subInfo.authors &&
+                DetailBook.subInfo.authors.map((author, index) => (
+                  <DetailDescriptionBox
+                    key={index}
+                    title={`저자 및 역자 - ${author.authorName}`}
+                    html={decode(author.authorInfo)}
+                  />
+                ))}
+            </Section>
+          </Container>
+        </BookDetail>
+      )}
+    </>
   );
 };

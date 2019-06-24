@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import LinesEllipsis from "react-lines-ellipsis";
+import HTMLEllipsis from "react-lines-ellipsis/lib/html";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
 import PropTypes from "prop-types";
 import { UpArrow, DownArrow } from "./Icons";
 import ListTitle from "./ListTitle";
 
-const ResponsiveLines = responsiveHOC()(LinesEllipsis);
+const ResponsiveLinesForText = responsiveHOC()(LinesEllipsis);
+const ResponsiveLinesForHtml = responsiveHOC()(HTMLEllipsis);
 
 const ContentTitle = styled(ListTitle)``;
 
-const DiscriptionBox = styled(ResponsiveLines)`
+const DiscriptionBoxForText = styled(ResponsiveLinesForText)`
+  padding: 18px 20px;
+  display: block;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.3rem;
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+  }
+`;
+
+const DiscriptionBoxFotHtml = styled(ResponsiveLinesForHtml)`
   padding: 18px 20px;
   display: block;
   font-weight: 500;
@@ -57,19 +70,29 @@ const ContentsBox = styled.article`
   box-shadow: ${props => props.theme.boxShadow};
 `;
 
-const DetailDescriptionBox = ({ title, text }) => {
+const DetailDescriptionBox = ({ title, text, html }) => {
   const [more, setMore] = useState(true);
 
   return (
     <ContentsBox>
       <ContentTitle title={title} />
-      <DiscriptionBox
-        text={text}
-        maxLine={more ? "5" : "1000"}
-        ellipsis="..."
-        trimRight
-        basedOn="letters"
-      />
+      {text && (
+        <DiscriptionBoxForText
+          text={text}
+          maxLine={more ? "3" : "1000"}
+          ellipsis="..."
+          trimRight
+          basedOn="letters"
+        />
+      )}
+      {html && (
+        <DiscriptionBoxFotHtml
+          unsafeHTML={html}
+          maxLine={more ? "3" : "1000"}
+          ellipsis="..."
+          basedOn="letters"
+        />
+      )}
       <MoreBox>
         {more && (
           <MoreBtn onClick={() => setMore(false)}>
@@ -90,7 +113,8 @@ const DetailDescriptionBox = ({ title, text }) => {
 
 DetailDescriptionBox.propTypes = {
   title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string,
+  html: PropTypes.string
 };
 
 export default DetailDescriptionBox;

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
+import decode from "unescape";
 
 // Import My Files
 import { Write } from "./Icons";
@@ -157,7 +158,7 @@ const WideBookBlock = withRouter(
                     .map((word, index) => <Genre key={index}>{word}</Genre>)}
               </SubContents>
               <Description
-                text={description}
+                text={decode(description)}
                 maxLine="3"
                 ellipsis="..."
                 trimRight
