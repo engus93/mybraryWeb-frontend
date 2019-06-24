@@ -119,8 +119,6 @@ export default ({ match: { params } }) => {
   // 처음에 어떤 데이터 가져올건지 분류
   try {
     useEffect(() => {
-      window.scrollTo(0, 0);
-
       // Gerne Params Catch
       const { gener } = params;
 

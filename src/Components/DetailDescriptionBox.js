@@ -1,17 +1,18 @@
+// Import Modules
 import React, { useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import LinesEllipsis from "react-lines-ellipsis";
 import HTMLEllipsis from "react-lines-ellipsis/lib/html";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
-import PropTypes from "prop-types";
+// Import My Files
 import { UpArrow, DownArrow } from "./Icons";
 import ListTitle from "./ListTitle";
 
+// Responsive Lines Ellipsis
 const ResponsiveLinesForText = responsiveHOC()(LinesEllipsis);
 const ResponsiveLinesForHtml = responsiveHOC()(HTMLEllipsis);
-
-const ContentTitle = styled(ListTitle)``;
 
 const DiscriptionBoxForText = styled(ResponsiveLinesForText)`
   padding: 18px 20px;
@@ -35,8 +36,6 @@ const DiscriptionBoxFotHtml = styled(ResponsiveLinesForHtml)`
   }
 `;
 
-const MoreBox = styled.footer``;
-
 const MoreBtn = styled.button`
   width: 100%;
   color: white;
@@ -45,7 +44,7 @@ const MoreBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f3aa42;
+  background-color: ${props => props.theme.mainColor};
   transition: 0.3s;
   :hover {
     opacity: 0.8;
@@ -71,11 +70,14 @@ const ContentsBox = styled.article`
 `;
 
 const DetailDescriptionBox = ({ title, text, html }) => {
+  // 접힌 내용 펼치기
   const [more, setMore] = useState(true);
 
   return (
     <ContentsBox>
-      <ContentTitle title={title} />
+      {/* 제목 */}
+      <ListTitle title={title} />
+      {/* Text일 경우 */}
       {text && (
         <DiscriptionBoxForText
           text={text}
@@ -85,6 +87,7 @@ const DetailDescriptionBox = ({ title, text, html }) => {
           basedOn="letters"
         />
       )}
+      {/* HTML일 경우 */}
       {html && (
         <DiscriptionBoxFotHtml
           unsafeHTML={html}
@@ -93,20 +96,20 @@ const DetailDescriptionBox = ({ title, text, html }) => {
           basedOn="letters"
         />
       )}
-      <MoreBox>
-        {more && (
-          <MoreBtn onClick={() => setMore(false)}>
-            More
-            <CustomDownArrow size={16} />
-          </MoreBtn>
-        )}
-        {!more && (
-          <MoreBtn onClick={() => setMore(true)}>
-            Close
-            <CustomUpArrow size={16} />
-          </MoreBtn>
-        )}
-      </MoreBox>
+      {/* 내용 열기 */}
+      {more && (
+        <MoreBtn onClick={() => setMore(false)}>
+          More
+          <CustomDownArrow size={16} />
+        </MoreBtn>
+      )}
+      {/* 내용 닫기 */}
+      {!more && (
+        <MoreBtn onClick={() => setMore(true)}>
+          Close
+          <CustomUpArrow size={16} />
+        </MoreBtn>
+      )}
     </ContentsBox>
   );
 };

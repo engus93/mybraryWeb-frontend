@@ -11,6 +11,7 @@ const Container = styled.input`
   background-color: ${props => props.theme.whiteColor};
   font-size: 14px;
   padding: 7px 12px;
+  width: 100%;
 `;
 
 // Render
