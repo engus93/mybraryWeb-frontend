@@ -71,15 +71,19 @@ const HeaderDivideRight = styled.div`
 `;
 
 const BookImg = styled.img`
-  box-shadow: ${props => props.theme.boxShadow};
+  width: 200px;
   height: 300px;
   object-fit: contain;
   border-radius: 5px;
   transition: 0.3s;
+  background-color: white;
+  box-shadow: ${props => props.theme.boxShadow};
   @media (max-width: 768px) {
+    width: 160px;
     height: 250px;
   }
   @media (max-width: 576px) {
+    width: 130px;
     height: 200px;
   }
 `;
