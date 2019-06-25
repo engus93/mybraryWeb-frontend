@@ -56,10 +56,19 @@ const Line = styled.div`
   top: -1px;
 `;
 
-const ListTitle = ({ title, moreLink }) => (
+const SearchWord = styled.span`
+  color: orangered;
+`;
+
+const ListTitle = ({ title, moreLink, search = "" }) => (
   <header>
     <TopDiv>
-      <Title>{title}</Title>
+      {search !== "" && (
+        <Title>
+          <SearchWord>{`'${search}'`}</SearchWord> 에 관한 자료입니다.
+        </Title>
+      )}
+      {search === "" && <Title>{title}</Title>}
       {moreLink && moreLink === "/" && (
         <>
           <MoreLink to={moreLink}>
@@ -85,7 +94,8 @@ const ListTitle = ({ title, moreLink }) => (
 
 ListTitle.propTypes = {
   title: PropTypes.string.isRequired,
-  moreLink: PropTypes.string
+  moreLink: PropTypes.string,
+  search: PropTypes.string
 };
 
 export default ListTitle;

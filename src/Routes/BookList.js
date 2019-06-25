@@ -56,7 +56,7 @@ const PagingBtb = styled.button`
 
 /* Apollo Client */
 // 처음에 리스트 불러오기
-export const LIST_BOOK = gql`
+const LIST_BOOK = gql`
   query ListBook($type: String!, $categoryId: Int) {
     ListBook(type: $type, categoryId: $categoryId) {
       itemId
@@ -72,7 +72,7 @@ export const LIST_BOOK = gql`
 `;
 
 // 페이징 리스트 불러오기
-export const LIST_BOOK_PAGING = gql`
+const LIST_BOOK_PAGING = gql`
   mutation ListBookPaging($type: String!, $categoryId: Int, $page: Int!) {
     ListBookPaging(type: $type, categoryId: $categoryId, page: $page) {
       itemId
