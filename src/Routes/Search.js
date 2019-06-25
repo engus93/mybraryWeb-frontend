@@ -1,19 +1,18 @@
 // Import Modules
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
+
+// Import My Files
 import Loader from "./../Components/Loader";
 import ListTitle from "./../Components/ListTitle";
 import WideBookBlock from "../Components/WideBookBlock";
-
-// Import My Files
+import NothingBlock from "../Components/NothingBlock";
+import { useMutation } from "react-apollo-hooks";
 
 // Style Components
-
 const Search = styled.div`
   background-color: ${props => props.theme.whiteBG};
 `;
@@ -21,12 +20,34 @@ const Search = styled.div`
 const Container = styled.section`
   width: ${props => props.theme.wrapperWidth};
   margin: 0 auto;
+  min-height: 90vh;
   @media (max-width: 1024px) {
     width: 100%;
   }
 `;
 
+const CenterSortBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+`;
+
+const PagingBtb = styled.button`
+  font-size: 16px;
+  padding: 5px 15px;
+  background: ${props => props.theme.mainColor};
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
 // Apollo Client
+// 검색 결과 가져오기
 const SEARCH_BOOK = gql`
   query SearchBook($searching: String!) {
     SearchBook(searching: $searching) {
@@ -42,34 +63,81 @@ const SEARCH_BOOK = gql`
   }
 `;
 
+// 페이징 검색 결과 불러오기
+const SEARCH_BOOK_PAGING = gql`
+  mutation SearchBookPaging($searching: String!, $page: Int!) {
+    SearchBookPaging(searching: $searching, page: $page) {
+      itemId
+      title
+      author
+      cover
+      pubDate
+      description
+      publisher
+      categoryName
+    }
+  }
+`;
+
 export default withRouter(({ history: { location: { search } } }) => {
-  const [searchS, setSearch] = useState(search);
+  // 검색어 가공
+  const term = decodeURI(search).split("=")[1];
+  // Page Number
+  const [page, setPage] = useState(2);
+  // 추가된 페이징 리스트
+  const [searchBookMore, setSearchBookMore] = useState([]);
+  // Paging Loading
+  const [pagingLoading, setPagingLoading] = useState(false);
 
-  useEffect(() => {
-    setSearch(search);
-    console.log("검색어" + searchS);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
-
+  // Searching Initial Request
   const {
     data: { SearchBook },
     loading
   } = useQuery(SEARCH_BOOK, {
+    skip: term === undefined,
     variables: {
-      searching: "여행"
+      searching: term
     }
   });
 
-  console.log(loading);
-  console.log(SearchBook);
+  // Searching Paging Request
+  const MutationSearchBookPaging = useMutation(SEARCH_BOOK_PAGING, {
+    variables: {
+      searching: term,
+      page
+    }
+  });
+
+  // Paging process function
+  const pagingProcess = async ({ target }) => {
+    // 버튼 중복 클릭 막기
+    target.disabled = true;
+    // 로딩 띄워주기
+    setPagingLoading(true);
+    // 데이터 가져오기
+    const {
+      data: { SearchBookPaging }
+    } = await MutationSearchBookPaging();
+    // 페이지 늘려주기
+    setPage(page + 1);
+    // // 데이터 저장하기
+    setSearchBookMore([...searchBookMore, ...SearchBookPaging]);
+    // 로딩 끝내기
+    setPagingLoading(false);
+    // 버튼 중복 클릭 해제
+    target.disabled = false;
+  };
 
   return (
     <>
       {loading && <Loader />}
-      {!loading && (
+      {!loading && SearchBook && (
         <Search>
           <Container>
-            <ListTitle title={'"여행"' + " 에 관한 자료입니다. 🔍"} />
+            <ListTitle search={term} title={` 에 관한 자료입니다. 🔍`} />
+            {/* 검색 결과가 없을시 */}
+            {SearchBook && SearchBook.length === 0 && <NothingBlock />}
+            {/* 검색 결과 */}
             {SearchBook &&
               SearchBook.map(book => {
                 return (
@@ -86,7 +154,29 @@ export default withRouter(({ history: { location: { search } } }) => {
                   />
                 );
               })}
-            {/* Paging */}
+            {/* Paging Component */}
+            {searchBookMore &&
+              searchBookMore.map(book => {
+                return (
+                  <WideBookBlock
+                    key={book.itemId}
+                    id={book.itemId}
+                    title={book.title}
+                    author={book.author}
+                    cover={book.cover}
+                    pubDate={book.pubDate}
+                    description={book.description}
+                    publisher={book.publisher}
+                    categoryName={book.categoryName}
+                  />
+                );
+              })}
+            {/* Paging Loading */}
+            {pagingLoading && <Loader paging={true} />}
+            {/* Paging More */}
+            <CenterSortBox>
+              <PagingBtb onClick={pagingProcess}>More</PagingBtb>
+            </CenterSortBox>
           </Container>
         </Search>
       )}
