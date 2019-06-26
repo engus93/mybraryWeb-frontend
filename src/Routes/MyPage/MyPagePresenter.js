@@ -42,9 +42,17 @@ const EditBox = styled.article`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 576px) {
+    width: 95%;
+  }
 `;
 
 const EditTitle = styled.h5`
+  cursor: pointer;
   font-size: 20px;
   margin-bottom: 50px;
   display: inline-block;
@@ -61,7 +69,12 @@ const EditTitle = styled.h5`
     }
     return "black";
   }};
-  cursor: pointer;
+  @media (max-width: 576px) {
+    font-size: 18px;
+  }
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
   :hover {
     opacity: 0.7;
   }
@@ -74,6 +87,9 @@ const EditInput = styled(AnimationInput)`
 
 const SortBox = styled.div`
   text-align: ${props => props.sort};
+  @media (max-width: 425px) {
+    text-align: ${props => (props.sort === "right" ? "center" : props.sort)};
+  }
 `;
 
 const InputBoxWrapper = styled.div`
@@ -93,13 +109,20 @@ const EditBtn = styled.button`
   :hover {
     opacity: 0.7;
   }
+  @media (max-width: 425px) {
+    width: 80%;
+    border-radius: 4px;
+  }
 `;
 
 const LeaveText = styled.span`
   text-align: center;
-  padding: 50px 20px;
+  padding: 50px 0;
   line-height: 30px;
   font-size: 18px;
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
 `;
 
 const PointText = styled.strong`

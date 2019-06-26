@@ -218,7 +218,7 @@ export default withRouter(({ history }) => {
           <MyInfoBox ref={dropMenuBox}>
             <ClickMenu>
               {me && me.username ? (
-                <UserName fontSize={14} text={me.username} />
+                <UserName id={"username"} fontSize={14} text={me.username} />
               ) : (
                 <UserName fontSize={14} text={"Loading.."} />
               )}

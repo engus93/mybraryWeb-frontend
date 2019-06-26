@@ -12,6 +12,7 @@ const Container = styled.span`
 
 // Render
 const Span = ({
+  id,
   text,
   fontSize = 14,
   marginValue,
@@ -19,6 +20,7 @@ const Span = ({
   className
 }) => (
   <Container
+    id={id}
     fontSize={fontSize}
     className={className}
     paddingValue={paddingValue}
@@ -30,6 +32,7 @@ const Span = ({
 
 // PropTypes Structure
 Span.propTypes = {
+  id: PropTypes.string,
   text: PropTypes.string.isRequired,
   fontSize: PropTypes.number,
   paddingValue: PropTypes.string,
