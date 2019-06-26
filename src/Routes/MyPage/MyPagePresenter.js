@@ -147,7 +147,7 @@ export default ({
     {!loading && (
       <MyPage>
         <Container>
-          <ListTitle title={"My Page"} />
+          <ListTitle title={"🔒 My Page 🔓"} />
           <SortWrapper>
             <EditBox>
               <form onSubmit={EditOnSubmit}>

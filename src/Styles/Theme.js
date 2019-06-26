@@ -16,6 +16,7 @@ export default {
     "0px 2px 3px rgba(0, 15, 11, 0.15), 0px 8px 16px rgba(0, 15, 11, 0.15)",
   smBoxShadowHover:
     "0px 12px 7px rgba(0, 15, 11, 0.15), 0px 16px 24px rgba(0, 15, 11, 0.15)",
+  miniBoxShadow: "0px 0px 0px rgba(0,0,0,0), 0px 0px 10px rgba(0,0,0,0.1)",
   boxBorder: "1px solid #e6e6e6",
   borderRadius: "4px",
   transitionOpt: "0.3s ease all",

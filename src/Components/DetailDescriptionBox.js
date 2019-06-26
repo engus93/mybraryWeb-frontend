@@ -62,6 +62,7 @@ const CustomUpArrow = styled(UpArrow)`
   position: relative;
   top: 1px;
 `;
+
 const ContentsBox = styled.article`
   margin-top: 30px;
   border-radius: 2px;

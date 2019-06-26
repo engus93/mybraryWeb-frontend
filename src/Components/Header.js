@@ -235,7 +235,7 @@ export default withRouter(({ history }) => {
               <MenuCategoty>
                 <MenuLink to={"/seeMyPost"}>
                   <Library size={14} />
-                  <Span text={"Mybrary"} marginValue={"0 0 0 7px"} />
+                  <Span text={"MyBrary"} marginValue={"0 0 0 7px"} />
                 </MenuLink>
               </MenuCategoty>
               <MenuCategoty>
