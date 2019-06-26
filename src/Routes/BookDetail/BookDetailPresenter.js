@@ -2,13 +2,14 @@
 import React from "react";
 import styled from "styled-components";
 import decode from "unescape";
+import { Helmet } from "react-helmet";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
 // Import My Files
+import Loader from "./../../Components/Loader";
 import { Write } from "./../../Components/Icons";
 import DetailDescriptionBox from "./../../Components/DetailDescriptionBox";
-import Loader from "./../../Components/Loader";
 
 // Style Components
 const ResponsiveLines = responsiveHOC()(LinesEllipsis);
@@ -193,6 +194,9 @@ export default ({ loading, DetailBook }) => (
     {loading && <Loader />}
     {!loading && (
       <BookDetail>
+        <Helmet>
+          <title>{`${DetailBook.title} | MyBrary`}</title>
+        </Helmet>
         <Header>
           <Container>
             <HeaderWrapper>

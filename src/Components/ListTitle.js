@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Span from "./Span";
-import { RightArrow, LeftArrow } from "./Icons";
+import { RightArrow, BackArrow } from "./Icons";
 
 const TopDiv = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const ListTitle = ({ title, moreLink, search = "" }) => (
     <TopDiv>
       {search !== "" && (
         <Title>
-          <SearchWord>{`'${search}'`}</SearchWord> 에 관한 자료입니다.
+          <SearchWord>{`'${search}'`}</SearchWord> {title}
         </Title>
       )}
       {search === "" && <Title>{title}</Title>}
@@ -73,7 +73,7 @@ const ListTitle = ({ title, moreLink, search = "" }) => (
         <>
           <MoreLink to={moreLink}>
             <More text={"뒤로가기"} />
-            <LeftArrow size={10} fill={"#6a6a6a"} />
+            <BackArrow size={10} fill={"#6a6a6a"} />
           </MoreLink>
         </>
       )}{" "}

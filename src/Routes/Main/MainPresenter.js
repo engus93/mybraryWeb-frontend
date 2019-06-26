@@ -1,7 +1,8 @@
 // Import Modules
 import React from "react";
-import styled from "styled-components";
 import Slider from "react-slick";
+import styled from "styled-components";
+import { Helmet } from "react-helmet";
 
 // Import My Files
 import BannerBook from "../../Components/BannerBook";
@@ -35,18 +36,14 @@ export default ({
   categorySlider,
   loading,
   MainListBook
-}) => {
-  if (loading) {
-    return (
+}) => (
+  <>
+    {loading && <Loader />}
+    {!loading && (
       <Main>
-        <Wrapper>
-          <Loader />
-        </Wrapper>
-      </Main>
-    );
-  } else if (!loading) {
-    return (
-      <Main>
+        <Helmet>
+          <title>{`Main | MyBrary`}</title>
+        </Helmet>
         <Wrapper>
           <section>
             <ListTitle title={bestSeller} moreLink={"bestSeller"} />
@@ -154,7 +151,6 @@ export default ({
           </section>
         </Wrapper>
       </Main>
-    );
-  }
-  return null;
-};
+    )}
+  </>
+);

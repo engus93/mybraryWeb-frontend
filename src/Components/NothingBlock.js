@@ -8,7 +8,7 @@ import { Nothing } from "./Icons";
 // Style Components
 const Container = styled.section`
   width: 100%;
-  height: 70vh;
+  height: ${props => props.height};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,9 +26,9 @@ const Text = styled.h5`
   font-size: 24px;
 `;
 
-export default () => {
+export default ({ height }) => {
   return (
-    <Container>
+    <Container height={height}>
       <NothingBox>
         <Nothing size={30} />
         <Text>Nothing</Text>

@@ -136,7 +136,9 @@ export default withRouter(({ history: { location: { search } } }) => {
           <Container>
             <ListTitle search={term} title={` 에 관한 자료입니다. 🔍`} />
             {/* 검색 결과가 없을시 */}
-            {SearchBook && SearchBook.length === 0 && <NothingBlock />}
+            {SearchBook && SearchBook.length === 0 && (
+              <NothingBlock height={"70vh"} />
+            )}
             {/* 검색 결과 */}
             {SearchBook &&
               SearchBook.map(book => {
@@ -172,7 +174,7 @@ export default withRouter(({ history: { location: { search } } }) => {
                 );
               })}
             {/* Paging Loading */}
-            {pagingLoading && <Loader paging={true} />}
+            {pagingLoading && <Loader height={"20vh"} />}
             {/* Paging More */}
             <CenterSortBox>
               <PagingBtb onClick={pagingProcess}>More</PagingBtb>

@@ -1,5 +1,18 @@
 import React from "react";
 
+export const UpArrow = ({ size = 24, fill = "white", className }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill={fill}
+    viewBox="0 0 24 24"
+  >
+    <path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z" />
+  </svg>
+);
+
 export const DownArrow = ({ size = 24, fill = "white", className }) => (
   <svg
     className={className}
@@ -13,20 +26,33 @@ export const DownArrow = ({ size = 24, fill = "white", className }) => (
   </svg>
 );
 
-export const LeftArrow = ({ size = 24, fill = "white" }) => (
+export const LeftArrow = ({
+  size = 24,
+  fill = "white",
+  className,
+  disabled
+}) => (
   <svg
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
     viewBox="0 0 24 24"
     fill={fill}
   >
-    <path d="M13.427 3.021h-7.427v-3.021l-6 5.39 6 5.61v-3h7.427c3.071 0 5.561 2.356 5.561 5.427 0 3.071-2.489 5.573-5.561 5.573h-7.427v5h7.427c5.84 0 10.573-4.734 10.573-10.573s-4.733-10.406-10.573-10.406z" />
+    <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
   </svg>
 );
 
-export const RightArrow = ({ size = 24, fill = "white" }) => (
+export const RightArrow = ({
+  size = 24,
+  fill = "white",
+  className,
+  disabled
+}) => (
   <svg
+    disabled={disabled}
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
@@ -37,16 +63,15 @@ export const RightArrow = ({ size = 24, fill = "white" }) => (
   </svg>
 );
 
-export const UpArrow = ({ size = 24, fill = "white", className }) => (
+export const BackArrow = ({ size = 24, fill = "white" }) => (
   <svg
-    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    fill={fill}
     viewBox="0 0 24 24"
+    fill={fill}
   >
-    <path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z" />
+    <path d="M13.427 3.021h-7.427v-3.021l-6 5.39 6 5.61v-3h7.427c3.071 0 5.561 2.356 5.561 5.427 0 3.071-2.489 5.573-5.561 5.573h-7.427v5h7.427c5.84 0 10.573-4.734 10.573-10.573s-4.733-10.406-10.573-10.406z" />
   </svg>
 );
 
@@ -160,5 +185,18 @@ export const Nothing = ({ className, size = 24, fill = "black" }) => (
     fill={fill}
   >
     <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
+  </svg>
+);
+
+export const DotMenu = ({ className, size = 24, fill = "black" }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill={fill}
+  >
+    <path d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z" />
   </svg>
 );

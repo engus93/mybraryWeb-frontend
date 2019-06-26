@@ -75,7 +75,7 @@ export default withRouter(() => {
 
       // 비밀번호 정규식 체크
       if (signUpPw.value !== "") {
-        if (signUpPw.value.length < 8 || signUpPw.value.length > 16) {
+        if (signUpPw.value.length <= 8 || signUpPw.value.length >= 16) {
           return toast.error("암호를 8자이상 16자 이하로 설정해주세요.");
         }
 
@@ -99,6 +99,13 @@ export default withRouter(() => {
 
       // 닉네임 중복 체크
       if (signUpUsername.value !== "") {
+        if (
+          signUpUsername.value.length <= 4 ||
+          signUpUsername.value.length >= 12
+        ) {
+          return toast.error("닉네임을 4자이상 12자 이하로 설정해주세요.");
+        }
+
         try {
           const {
             data: { duplicateCheck }
