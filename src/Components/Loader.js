@@ -18,15 +18,15 @@ const Animation = keyframes`
 const Container = styled.div`
   animation: ${Animation} 1s linear infinite;
   width: 100%;
-  height: ${props => (props.paging ? "20vh" : "90vh")};
+  height: ${props => props.height};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const Loader = ({ size = 48, paging = false }) => {
+const Loader = ({ size = 48, height = "20vh" }) => {
   return (
-    <Container paging={paging}>
+    <Container height={height}>
       <Library size={size} />
     </Container>
   );
@@ -34,7 +34,7 @@ const Loader = ({ size = 48, paging = false }) => {
 
 Loader.propTpyes = {
   size: PropTypes.number,
-  paging: PropTypes.bool
+  height: PropTypes.string
 };
 
 export default Loader;

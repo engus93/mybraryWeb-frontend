@@ -221,7 +221,7 @@ export default ({ match: { params } }) => {
                   categoryName={book.categoryName}
                 />
               ))}
-            {pagingLoading && <Loader paging={true} />}
+            {pagingLoading && <Loader height={"20vh"} />}
             <CenterSortBox>
               <PagingBtb onClick={pagingProcess}>More</PagingBtb>
             </CenterSortBox>

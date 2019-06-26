@@ -127,6 +127,11 @@ const PostBlock = ({ date, author, title, content }) => {
   );
 };
 
-PostBlock.propTypes = {};
+PostBlock.propTypes = {
+  date: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
+};
 
 export default PostBlock;

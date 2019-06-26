@@ -26,8 +26,14 @@ export const DownArrow = ({ size = 24, fill = "white", className }) => (
   </svg>
 );
 
-export const LeftArrow = ({ size = 24, fill = "white" }) => (
+export const LeftArrow = ({
+  size = 24,
+  fill = "white",
+  className,
+  disabled
+}) => (
   <svg
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
@@ -38,8 +44,15 @@ export const LeftArrow = ({ size = 24, fill = "white" }) => (
   </svg>
 );
 
-export const RightArrow = ({ size = 24, fill = "white" }) => (
+export const RightArrow = ({
+  size = 24,
+  fill = "white",
+  className,
+  disabled
+}) => (
   <svg
+    disabled={disabled}
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
