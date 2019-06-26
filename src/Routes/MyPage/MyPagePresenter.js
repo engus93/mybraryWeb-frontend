@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import AnimationInput from "./../../Components/AnimationInput";
 import ListTitle from "./../../Components/ListTitle";
 import Loader from "./../../Components/Loader";
+import { Helmet } from "react-helmet";
 // Style Components
 
 const MyPage = styled.div`
@@ -152,6 +153,9 @@ export default ({
               <form onSubmit={EditOnSubmit}>
                 {actionEdit && (
                   <>
+                    <Helmet>
+                      <title>{`Edit My Info | MyBrary`}</title>
+                    </Helmet>
                     <SortBox sort={"left"}>
                       <EditTitle
                         actionEdit={actionEdit}
@@ -208,6 +212,9 @@ export default ({
               </form>
               {!actionEdit && (
                 <>
+                  <Helmet>
+                    <title>{`Leave Mybrary | MyBrary`}</title>
+                  </Helmet>
                   <SortBox sort={"left"}>
                     <EditTitle
                       actionEdit={actionEdit}

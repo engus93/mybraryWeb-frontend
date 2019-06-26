@@ -4,13 +4,14 @@ import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
+import { toast } from "react-toastify";
 import { useQuery, useMutation } from "react-apollo-hooks";
 
 // Import My Files
 import ListTitle from "./../Components/ListTitle";
 import WideBookBlock from "./../Components/WideBookBlock";
 import Loader from "../Components/Loader";
-import { toast } from "react-toastify";
 import { errorMessage } from "../Styles/Variables";
 import {
   bestSeller,
@@ -188,6 +189,9 @@ export default ({ match: { params } }) => {
         {loading && <Loader />}
         {!loading && (
           <>
+            <Helmet>
+              <title>{`Book List | MyBrary`}</title>
+            </Helmet>
             <ListTitle title={title} moreLink={"/"} />
             {ListBook &&
               ListBook.map(book => (
