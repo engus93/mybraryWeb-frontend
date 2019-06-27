@@ -24,7 +24,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Loader = ({ size = 48, height = "20vh" }) => {
+const Loader = ({ size = 48, height = "90vh" }) => {
   return (
     <Container height={height}>
       <Library size={size} />
