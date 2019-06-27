@@ -33,8 +33,8 @@ const LoggedInRoutes = () => (
     </Switch>
   </ScrollToTop>
 );
-// When Logged Out
 
+// When Logged Out
 const LoggedOutRoutes = () => (
   <Switch>
     <Route exact path="/" component={Auth} />
