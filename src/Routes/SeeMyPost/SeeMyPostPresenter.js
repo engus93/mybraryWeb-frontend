@@ -12,9 +12,7 @@ import Loader from "./../../Components/Loader";
 import NothingBlock from "../../Components/NothingBlock";
 
 // Style Components
-const SeeMyPost = styled.div`
-  background-color: ${props => props.theme.whiteBG};
-`;
+const SeeMyPost = styled.div``;
 
 const Container = styled.section`
   width: ${props => props.theme.wrapperWidth};
