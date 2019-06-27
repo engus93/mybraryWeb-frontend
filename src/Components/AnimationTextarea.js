@@ -1,40 +1,45 @@
 // Import Modules
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Input from "./Input";
 import Label from "./Label";
 import { useState } from "react";
 
 // Styled Components
 const Container = styled.div`
   position: relative;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
-const AniInput = styled(Input)`
-  ${props => {
-    if (props.post) {
-      return props.ani ? "border-bottom: 1.2px solid #f3aa42 !important" : "";
-    }
-  }}
+const PostTextarea = styled.textarea`
+  padding: 7px;
+  font-family: initial;
+  width: 100%;
+  font-size: 14px;
+  outline: none;
+  border-bottom: ${props =>
+    props.ani ? "1.2px solid " + props.theme.mainColor : "1.2px solid #ddd"};
+  resize: none;
+  transition: 0.3s;
+  :focus {
+    border-bottom: 1.2px solid ${props => props.theme.mainColor};
+  }
 `;
 
 const AniLabel = styled(Label)`
   position: absolute;
+  left: 0;
   ${props => {
     if (props.ani) {
       return `
-      left: -3px;
       top: -15px;
-      font-size: ${props.aniAfter};
+      font-size: 14px;
       font-weight: 600;
       color: ${props.theme.mainColor};
       `;
     } else {
       return `
-      left: 12px;
       top: 10px;
-      font-size: ${props.aniBefore};
+      font-size: 12px;
       font-weight: 300;
       color: ${props.theme.blackColor};
       `;
@@ -43,17 +48,17 @@ const AniLabel = styled(Label)`
   pointer-events: none;
   transition: ${props => props.theme.transitionOpt};
   /* Focus Animation */
-  ${AniInput}:focus ~ & {
-    left: -3px !important;
+  ${PostTextarea}:focus ~ & {
+    left: 0;
     top: -15px;
-    font-size: ${props => props.aniAfter};
+    font-size: 14px;
     font-weight: 600;
     color: ${props => props.theme.mainColor};
   }
 `;
 
 // Render
-const AnimationInput = ({
+const AnimationTextarea = ({
   id,
   placeholder,
   required = true,
@@ -62,10 +67,7 @@ const AnimationInput = ({
   type = "text",
   labelText,
   disabled,
-  post = false,
-  className,
-  aniBefore = "10px",
-  aniAfter = "12px"
+  className
 }) => {
   const [ani, setAni] = useState(false);
 
@@ -79,26 +81,17 @@ const AnimationInput = ({
 
   return (
     <Container className={className}>
-      <AniInput
+      <PostTextarea
         id={id}
-        placeholder={placeholder}
-        required={required}
         value={value}
         onChange={onChange}
-        type={type}
-        disabled={disabled}
+        rows="10"
+        cols="50"
         ani={ani}
-        post={post}
       />
-      <AniLabel
-        htmlFor={id}
-        labelText={labelText}
-        ani={ani}
-        aniBefore={aniBefore}
-        aniAfter={aniAfter}
-      />
+      <AniLabel htmlFor={id} labelText={labelText} ani={ani} />
     </Container>
   );
 };
 
-export default AnimationInput;
+export default AnimationTextarea;

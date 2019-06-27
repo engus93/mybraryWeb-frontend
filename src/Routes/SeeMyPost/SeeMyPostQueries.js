@@ -15,7 +15,7 @@ export const SEE_MY_POST = gql`
 
 export const SEE_MY_POST_PAGING = gql`
   mutation seeMyPostPaging($page: Int!, $year: Int!, $month: Int!) {
-    seeMyPost(page: $page, year: $year, month: $month) {
+    seeMyPostPaging(page: $page, year: $year, month: $month) {
       id
       title
       author

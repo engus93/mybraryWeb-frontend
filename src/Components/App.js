@@ -12,6 +12,7 @@ import Theme from "../Styles/Theme";
 import GlobalStyles from "../Styles/GlobalStyles";
 import AppRouter from "./Routes";
 import Header from "./Header";
+import FloatingBtn from "./FloatingBtn";
 import Footer from "./Footer";
 
 const QUERY = gql`
@@ -31,6 +32,7 @@ export default () => {
         <GlobalStyles />
         <Router>
           {isLoggedIn && <Header />}
+          {isLoggedIn && <FloatingBtn />}
           <AppRouter isLoggedIn={isLoggedIn} />
           {isLoggedIn && <Footer />}
         </Router>
