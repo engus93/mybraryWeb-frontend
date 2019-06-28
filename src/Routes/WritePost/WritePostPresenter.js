@@ -54,7 +54,8 @@ const CustomAnimationInput = styled(AnimationInput)`
 
 const PushMybraryBtnBox = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 20px;
 `;
 
@@ -70,10 +71,20 @@ const PushMybraryBtn = styled.button`
   }
 `;
 
+const Aasdfas = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Infkdks = styled.input`
+  width: auto;
+`;
+
 export default ({
   postInputDate,
   postInputTitle,
   postInputContents,
+  postInputSecret,
   writeOnSubmit
 }) => {
   return (
@@ -82,7 +93,7 @@ export default ({
         <Helmet>
           <title>Write Post | MyBrary</title>
         </Helmet>
-        <ListTitle title={"😀 Write Post 😁"} />
+        <ListTitle title={"😀 Write Post 😁"} moreLink={"/seeMyPost"} />
         <WriteBox>
           <form onSubmit={writeOnSubmit}>
             <CustomAnimationInput
@@ -110,6 +121,17 @@ export default ({
               labelText={"내용"}
             />
             <PushMybraryBtnBox>
+              <Aasdfas>
+                <Infkdks
+                  value={postInputSecret.value}
+                  onChange={() =>
+                    postInputSecret.setValue(!postInputSecret.value)
+                  }
+                  type={"checkbox"}
+                  checked={postInputSecret.value}
+                />
+                나만 간직하기
+              </Aasdfas>
               <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
             </PushMybraryBtnBox>
           </form>

@@ -19,11 +19,13 @@ export default withRouter(({ history }) => {
 
   const postInputTitle = useInput("");
   const postInputContents = useInput("");
+  const postInputSecret = useInput(true);
 
   const MutationWritePost = useMutation(WRITE_POST, {
     variables: {
       title: postInputTitle.value,
-      contents: postInputContents.value.replace(/\n/g, "<br>")
+      contents: postInputContents.value.replace(/\n/g, "<br>"),
+      secret: postInputSecret.value
     }
   });
 
@@ -44,6 +46,7 @@ export default withRouter(({ history }) => {
       postInputDate={postInputDate}
       postInputTitle={postInputTitle}
       postInputContents={postInputContents}
+      postInputSecret={postInputSecret}
       writeOnSubmit={writeOnSubmit}
     />
   );
