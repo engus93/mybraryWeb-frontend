@@ -23,9 +23,11 @@ export default () => {
     variables: {
       year,
       month
-    }
+    },
+    fetchPolicy: "network-only"
   });
 
+  console.log(seeMyPost);
   // Next Data Response
   const seeMyPostPagingMutation = useMutation(SEE_MY_POST_PAGING, {
     variables: {
@@ -70,7 +72,6 @@ export default () => {
       const {
         data: { seeMyPostPaging }
       } = await seeMyPostPagingMutation();
-      console.log(seeMyPostPaging);
       // 더 이상 페이징 자료가 없으면 비활성화
       if (seeMyPostPaging.length > 0) {
         // 페이지 올리기

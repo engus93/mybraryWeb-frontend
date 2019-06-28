@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 
 // Import My Files
-import useInput from "../../Hooks/useInput";
 import ListTitle from "./../../Components/ListTitle";
 import AnimationInput from "./../../Components/AnimationInput";
 import AnimationTextarea from "../../Components/AnimationTextarea";
@@ -71,14 +70,12 @@ const PushMybraryBtn = styled.button`
   }
 `;
 
-export default () => {
-  const toDay = new Date();
-  const postInputDate = useInput(
-    `${toDay.getFullYear()} / ${toDay.getMonth() + 1} / ${toDay.getDate()}`
-  );
-  const postInputTitle = useInput("");
-  const postInputContents = useInput("");
-
+export default ({
+  postInputDate,
+  postInputTitle,
+  postInputContents,
+  writeOnSubmit
+}) => {
   return (
     <WritePost>
       <Container>
@@ -87,33 +84,35 @@ export default () => {
         </Helmet>
         <ListTitle title={"😀 Write Post 😁"} />
         <WriteBox>
-          <CustomAnimationInput
-            id={"postDate"}
-            type={"text"}
-            {...postInputDate}
-            labelText={"날짜"}
-            disabled={true}
-            post={true}
-            aniBefore={"12px"}
-            aniAfter={"14px"}
-          />
-          <CustomAnimationInput
-            id={"postTitle"}
-            type={"text"}
-            {...postInputTitle}
-            labelText={"제목"}
-            post={true}
-            aniBefore={"12px"}
-            aniAfter={"14px"}
-          />
-          <AnimationTextarea
-            id={"postTitle"}
-            {...postInputContents}
-            labelText={"내용"}
-          />
-          <PushMybraryBtnBox>
-            <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
-          </PushMybraryBtnBox>
+          <form onSubmit={writeOnSubmit}>
+            <CustomAnimationInput
+              id={"postDate"}
+              type={"text"}
+              {...postInputDate}
+              labelText={"날짜"}
+              disabled={true}
+              post={true}
+              aniBefore={"12px"}
+              aniAfter={"14px"}
+            />
+            <CustomAnimationInput
+              id={"postTitle"}
+              type={"text"}
+              {...postInputTitle}
+              labelText={"제목"}
+              post={true}
+              aniBefore={"12px"}
+              aniAfter={"14px"}
+            />
+            <AnimationTextarea
+              id={"postTitle"}
+              {...postInputContents}
+              labelText={"내용"}
+            />
+            <PushMybraryBtnBox>
+              <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
+            </PushMybraryBtnBox>
+          </form>
         </WriteBox>
       </Container>
     </WritePost>

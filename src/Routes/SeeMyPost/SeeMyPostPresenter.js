@@ -10,6 +10,7 @@ import Span from "./../../Components/Span";
 import PostBlock from "../../Components/PostBlock";
 import Loader from "./../../Components/Loader";
 import NothingBlock from "../../Components/NothingBlock";
+import decode from "unescape";
 
 // Style Components
 const SeeMyPost = styled.div``;
@@ -116,9 +117,9 @@ export default ({
                         key={post.id}
                         date={`${targetDate.getFullYear()} / ${targetDate.getMonth() +
                           1} / ${targetDate.getDate()}`}
-                        author={post.author}
+                        author={post.user.username}
                         title={post.title}
-                        content={post.contents}
+                        content={decode(post.contents)}
                       />
                     );
                   })}

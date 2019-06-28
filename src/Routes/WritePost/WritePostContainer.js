@@ -3,7 +3,48 @@ import React from "react";
 
 // Import My Files
 import WritePostPresenter from "./WritePostPresenter";
+import useInput from "../../Hooks/useInput";
+import { useMutation } from "react-apollo-hooks";
+import { WRITE_POST } from "./WritePostQueries";
+import { withRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
-export default () => {
-  return <WritePostPresenter />;
-};
+export default withRouter(({ history }) => {
+  // 오늘 날짜
+  const toDay = new Date();
+  // 날짜 데이터 글자 형태로 변환
+  const postInputDate = useInput(
+    `${toDay.getFullYear()} / ${toDay.getMonth() + 1} / ${toDay.getDate()}`
+  );
+
+  const postInputTitle = useInput("");
+  const postInputContents = useInput("");
+
+  const MutationWritePost = useMutation(WRITE_POST, {
+    variables: {
+      title: postInputTitle.value,
+      contents: postInputContents.value.replace(/\n/g, "<br>")
+    }
+  });
+
+  const writeOnSubmit = async event => {
+    event.preventDefault();
+    if (postInputTitle.value === "") {
+      return toast.error("제목이 아직 없습니다. 🙄");
+    } else if (postInputContents.value === "") {
+      return toast.error("내용이 아직 없습니다. 🙄");
+    } else {
+      await MutationWritePost();
+      history.push("/seeMyPost");
+    }
+  };
+
+  return (
+    <WritePostPresenter
+      postInputDate={postInputDate}
+      postInputTitle={postInputTitle}
+      postInputContents={postInputContents}
+      writeOnSubmit={writeOnSubmit}
+    />
+  );
+});

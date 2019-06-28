@@ -9,6 +9,9 @@ export const SEE_MY_POST = gql`
       contents
       secret
       createdAt
+      user {
+        username
+      }
     }
   }
 `;
@@ -22,6 +25,9 @@ export const SEE_MY_POST_PAGING = gql`
       contents
       secret
       createdAt
+      user {
+        username
+      }
     }
   }
 `;

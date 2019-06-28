@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import LinesEllipsis from "react-lines-ellipsis";
+import HTMLEllipsis from "react-lines-ellipsis/lib/html";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
 // Import My Files
 import { DotMenu, UpArrow, DownArrow } from "./Icons";
 
-const ResponsiveLines = responsiveHOC()(LinesEllipsis);
+const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
 // Style Components
 const PostBlockFrame = styled.article`
@@ -95,14 +95,15 @@ const PostBlock = ({ date, author, title, content }) => {
           <span>{author}</span>
         </SortBox>
         <Title
-          text={title}
-          maxLine="1"
+          unsafeHTML={title}
+          maxLine={moreBtn ? "1" : "1000"}
           ellipsis="..."
           trimRight
           basedOn="letters"
         />
         <Content
-          text={content}
+          // text={content}
+          unsafeHTML={content}
           maxLine={moreBtn ? "3" : "1000"}
           ellipsis="..."
           trimRight
