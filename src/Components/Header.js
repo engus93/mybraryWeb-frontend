@@ -167,6 +167,14 @@ export default withRouter(({ history }) => {
   // Variables
   const searchBar = useInput("");
 
+  // 검색창 초기화 해주기
+  useEffect(() => {
+    if (history.location.pathname !== "/search") {
+      searchBar.setValue("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history.location.pathname]);
+
   // Drop Box Click Function
   const [drop, setDrop] = useState(false);
 

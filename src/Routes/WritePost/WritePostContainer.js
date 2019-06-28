@@ -9,7 +9,7 @@ import { WRITE_POST } from "./WritePostQueries";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default withRouter(({ history }) => {
+export default withRouter(({ history, match: { params: { book } } }) => {
   // 오늘 날짜
   const toDay = new Date();
   // 날짜 데이터 글자 형태로 변환
@@ -20,6 +20,8 @@ export default withRouter(({ history }) => {
   const postInputTitle = useInput("");
   const postInputContents = useInput("");
   const postInputSecret = useInput(true);
+
+  // 책 검색해서 뿌려두기
 
   const MutationWritePost = useMutation(WRITE_POST, {
     variables: {
