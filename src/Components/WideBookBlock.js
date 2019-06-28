@@ -161,7 +161,7 @@ const WideBookBlock = withRouter(
                 text={decode(description)}
                 maxLine="3"
                 ellipsis="..."
-                trimRight
+                // trimRight
                 basedOn="letters"
               />
             </div>

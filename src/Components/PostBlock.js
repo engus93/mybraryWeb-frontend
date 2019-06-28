@@ -2,16 +2,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import LinesEllipsis from "react-lines-ellipsis";
+import HTMLEllipsis from "react-lines-ellipsis/lib/html";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
 // Import My Files
 import { DotMenu, UpArrow, DownArrow } from "./Icons";
+import { PostBookCover } from "./Icons";
 
-const ResponsiveLines = responsiveHOC()(LinesEllipsis);
+const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
 // Style Components
 const PostBlockFrame = styled.article`
+  user-select: none;
   margin-bottom: 30px;
   background-color: white;
   box-shadow: ${props => props.theme.miniBoxShadow};
@@ -25,19 +27,9 @@ const SortBox = styled.div`
   margin-bottom: 15px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   /* CSS Branch */
-  ${props => {
-    switch (props.type) {
-      case "btn":
-        return "justify-content: flex-end;";
-
-      case "info":
-        return "justify-content: space-between;";
-
-      default:
-        return;
-    }
-  }}
+  position: ${props => (props.type === "btn" ? "relative" : "")};
 `;
 
 const CustomDotMenu = styled(DotMenu)`
@@ -81,31 +73,72 @@ const CustomUpArrow = styled(UpArrow)`
   top: 1px;
 `;
 
-const PostBlock = ({ date, author, title, content }) => {
+const MenuBox = styled.div`
+  display: inline-block;
+  position: absolute;
+  background-color: aliceblue;
+  padding: 10px;
+  top: 5px;
+  right: 5px;
+  border-radius: 7px;
+  z-index: 31;
+  cursor: pointer;
+  box-shadow: ${props => props.theme.boxShadow};
+`;
+
+const CancelClickBox = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+`;
+
+const CustomPostBookCover = styled(PostBookCover)`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const PostBlock = ({ id, date, author, title, content, cover }) => {
   const [moreBtn, setMoreBtn] = useState(true);
+  const [deleteMenu, setDeleteMenu] = useState(false);
 
   return (
-    <PostBlockFrame>
+    <PostBlockFrame id={id}>
       <Container>
+        {deleteMenu && <CancelClickBox onClick={() => setDeleteMenu(false)} />}
         <SortBox type={"btn"}>
-          <CustomDotMenu size={12} />
+          {cover !== "" && (
+            <CustomPostBookCover onClick={() => console.log("zz")} />
+          )}
+          {/* Flex를 위한 빈 값 */}
+          {cover === "" && <div />}
+          <CustomDotMenu size={12} onClick={() => setDeleteMenu(true)} />
+          {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
         </SortBox>
         <SortBox type={"info"}>
           <span>{date}</span>
           <span>{author}</span>
         </SortBox>
         <Title
-          text={title}
-          maxLine="1"
+          unsafeHTML={title}
+          maxLine={moreBtn ? "1" : "1000"}
           ellipsis="..."
-          trimRight
+          // trimRight
           basedOn="letters"
         />
         <Content
-          text={content}
+          // text={content}
+          unsafeHTML={content}
           maxLine={moreBtn ? "3" : "1000"}
           ellipsis="..."
-          trimRight
+          // trimRight
           basedOn="letters"
         />
       </Container>

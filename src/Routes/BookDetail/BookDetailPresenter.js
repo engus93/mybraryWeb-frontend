@@ -10,6 +10,7 @@ import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 import Loader from "./../../Components/Loader";
 import { Write } from "./../../Components/Icons";
 import DetailDescriptionBox from "./../../Components/DetailDescriptionBox";
+import { Link } from "react-router-dom";
 
 // Style Components
 const ResponsiveLines = responsiveHOC()(LinesEllipsis);
@@ -209,7 +210,7 @@ export default ({ loading, DetailBook }) => (
                     text={DetailBook.title}
                     maxLine="2"
                     ellipsis="..."
-                    trimRight
+                    // trimRight
                     basedOn="letters"
                   />
                   <SubContents>{DetailBook.author}</SubContents>
@@ -225,10 +226,12 @@ export default ({ loading, DetailBook }) => (
                   </SubContents>
                 </div>
                 <WriteBox>
-                  <WirteBtn>
-                    <WriteIcon size={16} />
-                    작성하기
-                  </WirteBtn>
+                  <Link to={`/writePost/${DetailBook.itemId}`}>
+                    <WirteBtn>
+                      <WriteIcon size={16} />
+                      작성하기
+                    </WirteBtn>
+                  </Link>
                 </WriteBox>
               </HeaderDivideRight>
             </HeaderWrapper>

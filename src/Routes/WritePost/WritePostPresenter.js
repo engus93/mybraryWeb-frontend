@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 
 // Import My Files
-import useInput from "../../Hooks/useInput";
 import ListTitle from "./../../Components/ListTitle";
 import AnimationInput from "./../../Components/AnimationInput";
 import AnimationTextarea from "../../Components/AnimationTextarea";
+import Loader from "./../../Components/Loader";
 
 // Style Components
 const WritePost = styled.div``;
@@ -55,7 +55,8 @@ const CustomAnimationInput = styled(AnimationInput)`
 
 const PushMybraryBtnBox = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 20px;
 `;
 
@@ -71,51 +72,87 @@ const PushMybraryBtn = styled.button`
   }
 `;
 
-export default () => {
-  const toDay = new Date();
-  const postInputDate = useInput(
-    `${toDay.getFullYear()} / ${toDay.getMonth() + 1} / ${toDay.getDate()}`
-  );
-  const postInputTitle = useInput("");
-  const postInputContents = useInput("");
+const Aasdfas = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
+const Infkdks = styled.input`
+  width: auto;
+`;
+
+export default ({
+  postInputDate,
+  postInputTitle,
+  postInputContents,
+  postInputSecret,
+  writeOnSubmit,
+  book,
+  loading,
+  data
+}) => {
   return (
-    <WritePost>
-      <Container>
-        <Helmet>
-          <title>Write Post | MyBrary</title>
-        </Helmet>
-        <ListTitle title={"😀 Write Post 😁"} />
-        <WriteBox>
-          <CustomAnimationInput
-            id={"postDate"}
-            type={"text"}
-            {...postInputDate}
-            labelText={"날짜"}
-            disabled={true}
-            post={true}
-            aniBefore={"12px"}
-            aniAfter={"14px"}
-          />
-          <CustomAnimationInput
-            id={"postTitle"}
-            type={"text"}
-            {...postInputTitle}
-            labelText={"제목"}
-            post={true}
-            aniBefore={"12px"}
-            aniAfter={"14px"}
-          />
-          <AnimationTextarea
-            id={"postTitle"}
-            {...postInputContents}
-            labelText={"내용"}
-          />
-          <PushMybraryBtnBox>
-            <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
-          </PushMybraryBtnBox>
-        </WriteBox>
-      </Container>
-    </WritePost>
+    <>
+      {loading && <Loader />}
+      {!loading && (
+        <WritePost>
+          <Container>
+            <Helmet>
+              <title>Write Post | MyBrary</title>
+            </Helmet>
+            <ListTitle title={"😀 Write Post 😁"} moreLink={"/seeMyPost"} />
+            <WriteBox>
+              <form onSubmit={writeOnSubmit}>
+                <CustomAnimationInput
+                  id={"postDate"}
+                  type={"text"}
+                  {...postInputDate}
+                  labelText={"날짜"}
+                  disabled={true}
+                  post={true}
+                  aniBefore={"12px"}
+                  aniAfter={"14px"}
+                />
+                <CustomAnimationInput
+                  id={"postTitle"}
+                  type={"text"}
+                  value={
+                    data && data.DetailBook
+                      ? data.DetailBook.title + " / " + data.DetailBook.author
+                      : postInputTitle.value
+                  }
+                  setValue={postInputTitle.setValue}
+                  onChange={postInputTitle.onChange}
+                  labelText={"제목"}
+                  disabled={Boolean(book)}
+                  post={true}
+                  aniBefore={"12px"}
+                  aniAfter={"14px"}
+                />
+                <AnimationTextarea
+                  id={"postTitle"}
+                  {...postInputContents}
+                  labelText={"내용"}
+                />
+                <PushMybraryBtnBox>
+                  <Aasdfas>
+                    <Infkdks
+                      value={postInputSecret.value}
+                      onChange={() =>
+                        postInputSecret.setValue(!postInputSecret.value)
+                      }
+                      type={"checkbox"}
+                      checked={postInputSecret.value}
+                    />
+                    나만 간직하기
+                  </Aasdfas>
+                  <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
+                </PushMybraryBtnBox>
+              </form>
+            </WriteBox>
+          </Container>
+        </WritePost>
+      )}
+    </>
   );
 };

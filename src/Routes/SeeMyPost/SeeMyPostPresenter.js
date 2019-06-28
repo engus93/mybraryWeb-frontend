@@ -10,6 +10,7 @@ import Span from "./../../Components/Span";
 import PostBlock from "../../Components/PostBlock";
 import Loader from "./../../Components/Loader";
 import NothingBlock from "../../Components/NothingBlock";
+import decode from "unescape";
 
 // Style Components
 const SeeMyPost = styled.div``;
@@ -76,7 +77,8 @@ export default ({
   pagingLoading,
   pagingList,
   eventPass,
-  pagingProcess
+  pagingProcess,
+  deleteLoading
 }) => {
   return (
     <>
@@ -100,8 +102,8 @@ export default ({
                 <RightArrow size={14} />
               </DateBtn>
             </DateSelectBox>
-            {loading && <Loader height={"50vh"} />}
-            {!loading && (
+            {(loading || deleteLoading) && <Loader height={"50vh"} />}
+            {!loading && !deleteLoading && (
               <>
                 {seeMyPost && seeMyPost.length === 0 && (
                   <NothingBlock height={"50vh"} />
@@ -114,11 +116,13 @@ export default ({
                     return (
                       <PostBlock
                         key={post.id}
+                        id={post.id}
                         date={`${targetDate.getFullYear()} / ${targetDate.getMonth() +
                           1} / ${targetDate.getDate()}`}
-                        author={post.author}
+                        author={post.user.username}
                         title={post.title}
-                        content={post.contents}
+                        content={decode(post.contents)}
+                        cover={post.files.length > 0 ? post.files[0].url : ""}
                       />
                     );
                   })}
@@ -130,6 +134,7 @@ export default ({
                     return (
                       <PostBlock
                         key={post.id}
+                        id={post.id}
                         date={`${targetDate.getFullYear()} / ${targetDate.getMonth() +
                           1} / ${targetDate.getDate()}`}
                         author={post.author}

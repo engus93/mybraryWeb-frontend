@@ -5,10 +5,15 @@ export const SEE_MY_POST = gql`
     seeMyPost(year: $year, month: $month) {
       id
       title
-      author
       contents
       secret
       createdAt
+      user {
+        username
+      }
+      files {
+        url
+      }
     }
   }
 `;
@@ -18,10 +23,21 @@ export const SEE_MY_POST_PAGING = gql`
     seeMyPostPaging(page: $page, year: $year, month: $month) {
       id
       title
-      author
       contents
       secret
       createdAt
+      user {
+        username
+      }
+      files {
+        url
+      }
     }
+  }
+`;
+
+export const DELETE_POST = gql`
+  mutation deletePost($postId: String!) {
+    deletePost(postId: $postId)
   }
 `;
