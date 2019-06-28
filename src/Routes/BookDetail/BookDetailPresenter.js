@@ -209,7 +209,7 @@ export default ({ loading, DetailBook }) => (
                     text={DetailBook.title}
                     maxLine="2"
                     ellipsis="..."
-                    trimRight
+                    // trimRight
                     basedOn="letters"
                   />
                   <SubContents>{DetailBook.author}</SubContents>

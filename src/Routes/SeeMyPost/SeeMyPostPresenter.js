@@ -77,7 +77,8 @@ export default ({
   pagingLoading,
   pagingList,
   eventPass,
-  pagingProcess
+  pagingProcess,
+  deleteLoading
 }) => {
   return (
     <>
@@ -101,8 +102,8 @@ export default ({
                 <RightArrow size={14} />
               </DateBtn>
             </DateSelectBox>
-            {loading && <Loader height={"50vh"} />}
-            {!loading && (
+            {(loading || deleteLoading) && <Loader height={"50vh"} />}
+            {!loading && !deleteLoading && (
               <>
                 {seeMyPost && seeMyPost.length === 0 && (
                   <NothingBlock height={"50vh"} />
@@ -115,6 +116,7 @@ export default ({
                     return (
                       <PostBlock
                         key={post.id}
+                        id={post.id}
                         date={`${targetDate.getFullYear()} / ${targetDate.getMonth() +
                           1} / ${targetDate.getDate()}`}
                         author={post.user.username}
@@ -131,6 +133,7 @@ export default ({
                     return (
                       <PostBlock
                         key={post.id}
+                        id={post.id}
                         date={`${targetDate.getFullYear()} / ${targetDate.getMonth() +
                           1} / ${targetDate.getDate()}`}
                         author={post.author}

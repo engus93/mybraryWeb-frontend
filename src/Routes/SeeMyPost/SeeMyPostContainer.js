@@ -1,11 +1,12 @@
 // Import Modules
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "react-apollo-hooks";
 
 // Import My Files
 import SeeMyPostPresenter from "./SeeMyPostPresenter";
 import { SEE_MY_POST, SEE_MY_POST_PAGING } from "./SeeMyPostQueries";
 import { toast } from "react-toastify";
+import { DELETE_POST } from "./SeeMyPostQueries";
 
 export default () => {
   const [page, setPage] = useState(1);
@@ -14,6 +15,7 @@ export default () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [eventPass, setEventPass] = useState(true);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   // First Data Response
   const {
@@ -27,7 +29,6 @@ export default () => {
     fetchPolicy: "network-only"
   });
 
-  console.log(seeMyPost);
   // Next Data Response
   const seeMyPostPagingMutation = useMutation(SEE_MY_POST_PAGING, {
     variables: {
@@ -36,6 +37,8 @@ export default () => {
       month
     }
   });
+
+  const MutationDeletePost = useMutation(DELETE_POST);
 
   // 날짜 이동 프로세스
   const dateCountPlus = () => {
@@ -87,6 +90,35 @@ export default () => {
     }
   };
 
+  const deletePostProcess = async event => {
+    if (
+      event.path[0].attributes.length > 0 &&
+      event.path[0].attributes[0].value === "Delete Post"
+    ) {
+      try {
+        MutationDeletePost({
+          variables: {
+            postId: event.path[3].id
+          }
+        });
+        event.path[3].remove();
+        toast.success("일기가 삭제 되었습니다.");
+      } catch (error) {
+        setDeleteLoading(false);
+        toast.success("오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    }
+  };
+
+  // Delete Post Process
+  useEffect(() => {
+    document.addEventListener("click", deletePostProcess);
+    return () => {
+      document.removeEventListener("click", deletePostProcess);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SeeMyPostPresenter
       loading={loading}
@@ -99,6 +131,7 @@ export default () => {
       pagingList={pagingList}
       eventPass={eventPass}
       pagingProcess={pagingProcess}
+      deleteLoading={deleteLoading}
     />
   );
 };

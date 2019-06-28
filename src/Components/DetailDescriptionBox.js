@@ -84,7 +84,7 @@ const DetailDescriptionBox = ({ title, text, html }) => {
           text={text}
           maxLine={more ? "3" : "1000"}
           ellipsis="..."
-          trimRight
+          // trimRight
           basedOn="letters"
         />
       )}

@@ -12,6 +12,7 @@ const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
 // Style Components
 const PostBlockFrame = styled.article`
+  user-select: none;
   margin-bottom: 30px;
   background-color: white;
   box-shadow: ${props => props.theme.miniBoxShadow};
@@ -29,7 +30,7 @@ const SortBox = styled.div`
   ${props => {
     switch (props.type) {
       case "btn":
-        return "justify-content: flex-end;";
+        return "justify-content: flex-end; position: relative;";
 
       case "info":
         return "justify-content: space-between;";
@@ -81,14 +82,39 @@ const CustomUpArrow = styled(UpArrow)`
   top: 1px;
 `;
 
-const PostBlock = ({ date, author, title, content }) => {
+const MenuBox = styled.div`
+  display: inline-block;
+  position: absolute;
+  background-color: aliceblue;
+  padding: 10px;
+  top: 5px;
+  right: 5px;
+  border-radius: 7px;
+  z-index: 31;
+  cursor: pointer;
+  box-shadow: ${props => props.theme.boxShadow};
+`;
+
+const CancelClickBox = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+`;
+
+const PostBlock = ({ id, date, author, title, content }) => {
   const [moreBtn, setMoreBtn] = useState(true);
+  const [deleteMenu, setDeleteMenu] = useState(false);
 
   return (
-    <PostBlockFrame>
+    <PostBlockFrame id={id}>
       <Container>
-        <SortBox type={"btn"}>
+        {deleteMenu && <CancelClickBox onClick={() => setDeleteMenu(false)} />}
+        <SortBox type={"btn"} onClick={() => setDeleteMenu(true)}>
           <CustomDotMenu size={12} />
+          {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
         </SortBox>
         <SortBox type={"info"}>
           <span>{date}</span>
@@ -98,7 +124,7 @@ const PostBlock = ({ date, author, title, content }) => {
           unsafeHTML={title}
           maxLine={moreBtn ? "1" : "1000"}
           ellipsis="..."
-          trimRight
+          // trimRight
           basedOn="letters"
         />
         <Content
@@ -106,7 +132,7 @@ const PostBlock = ({ date, author, title, content }) => {
           unsafeHTML={content}
           maxLine={moreBtn ? "3" : "1000"}
           ellipsis="..."
-          trimRight
+          // trimRight
           basedOn="letters"
         />
       </Container>
