@@ -1,11 +1,11 @@
 // Import Modules
-import React from "react";
+import React, { useEffect } from "react";
 
 // Import My Files
 import WritePostPresenter from "./WritePostPresenter";
 import useInput from "../../Hooks/useInput";
-import { useMutation } from "react-apollo-hooks";
-import { WRITE_POST } from "./WritePostQueries";
+import { useMutation, useQuery } from "react-apollo-hooks";
+import { WRITE_POST, WRITE_BOOK } from "./WritePostQueries";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -22,12 +22,27 @@ export default withRouter(({ history, match: { params: { book } } }) => {
   const postInputSecret = useInput(true);
 
   // 책 검색해서 뿌려두기
+  const { loading, data } = useQuery(WRITE_BOOK, {
+    skip: book === undefined,
+    variables: {
+      itemId: Number(book)
+    }
+  });
+
+  // 책 정보 가져와서 글쓰기 할떄에 정보 세팅
+  useEffect(() => {
+    if (!loading && data && data.DetailBook) {
+      postInputTitle.setValue(data.DetailBook.title);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const MutationWritePost = useMutation(WRITE_POST, {
     variables: {
       title: postInputTitle.value,
       contents: postInputContents.value.replace(/\n/g, "<br>"),
-      secret: postInputSecret.value
+      secret: postInputSecret.value,
+      files: data && data.DetailBook ? data.DetailBook.cover : ""
     }
   });
 
@@ -50,6 +65,9 @@ export default withRouter(({ history, match: { params: { book } } }) => {
       postInputContents={postInputContents}
       postInputSecret={postInputSecret}
       writeOnSubmit={writeOnSubmit}
+      book={book}
+      loading={loading}
+      data={data}
     />
   );
 });

@@ -7,6 +7,7 @@ import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 
 // Import My Files
 import { DotMenu, UpArrow, DownArrow } from "./Icons";
+import { PostBookCover } from "./Icons";
 
 const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
@@ -26,19 +27,9 @@ const SortBox = styled.div`
   margin-bottom: 15px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   /* CSS Branch */
-  ${props => {
-    switch (props.type) {
-      case "btn":
-        return "justify-content: flex-end; position: relative;";
-
-      case "info":
-        return "justify-content: space-between;";
-
-      default:
-        return;
-    }
-  }}
+  position: ${props => (props.type === "btn" ? "relative" : "")};
 `;
 
 const CustomDotMenu = styled(DotMenu)`
@@ -104,7 +95,17 @@ const CancelClickBox = styled.div`
   z-index: 30;
 `;
 
-const PostBlock = ({ id, date, author, title, content }) => {
+const CustomPostBookCover = styled(PostBookCover)`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const PostBlock = ({ id, date, author, title, content, cover }) => {
   const [moreBtn, setMoreBtn] = useState(true);
   const [deleteMenu, setDeleteMenu] = useState(false);
 
@@ -112,8 +113,13 @@ const PostBlock = ({ id, date, author, title, content }) => {
     <PostBlockFrame id={id}>
       <Container>
         {deleteMenu && <CancelClickBox onClick={() => setDeleteMenu(false)} />}
-        <SortBox type={"btn"} onClick={() => setDeleteMenu(true)}>
-          <CustomDotMenu size={12} />
+        <SortBox type={"btn"}>
+          {cover !== "" && (
+            <CustomPostBookCover onClick={() => console.log("zz")} />
+          )}
+          {/* Flex를 위한 빈 값 */}
+          {cover === "" && <div />}
+          <CustomDotMenu size={12} onClick={() => setDeleteMenu(true)} />
           {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
         </SortBox>
         <SortBox type={"info"}>

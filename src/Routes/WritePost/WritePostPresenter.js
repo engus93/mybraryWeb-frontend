@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import ListTitle from "./../../Components/ListTitle";
 import AnimationInput from "./../../Components/AnimationInput";
 import AnimationTextarea from "../../Components/AnimationTextarea";
+import Loader from "./../../Components/Loader";
 
 // Style Components
 const WritePost = styled.div``;
@@ -85,58 +86,73 @@ export default ({
   postInputTitle,
   postInputContents,
   postInputSecret,
-  writeOnSubmit
+  writeOnSubmit,
+  book,
+  loading,
+  data
 }) => {
   return (
-    <WritePost>
-      <Container>
-        <Helmet>
-          <title>Write Post | MyBrary</title>
-        </Helmet>
-        <ListTitle title={"😀 Write Post 😁"} moreLink={"/seeMyPost"} />
-        <WriteBox>
-          <form onSubmit={writeOnSubmit}>
-            <CustomAnimationInput
-              id={"postDate"}
-              type={"text"}
-              {...postInputDate}
-              labelText={"날짜"}
-              disabled={true}
-              post={true}
-              aniBefore={"12px"}
-              aniAfter={"14px"}
-            />
-            <CustomAnimationInput
-              id={"postTitle"}
-              type={"text"}
-              {...postInputTitle}
-              labelText={"제목"}
-              post={true}
-              aniBefore={"12px"}
-              aniAfter={"14px"}
-            />
-            <AnimationTextarea
-              id={"postTitle"}
-              {...postInputContents}
-              labelText={"내용"}
-            />
-            <PushMybraryBtnBox>
-              <Aasdfas>
-                <Infkdks
-                  value={postInputSecret.value}
-                  onChange={() =>
-                    postInputSecret.setValue(!postInputSecret.value)
-                  }
-                  type={"checkbox"}
-                  checked={postInputSecret.value}
+    <>
+      {loading && <Loader />}
+      {!loading && (
+        <WritePost>
+          <Container>
+            <Helmet>
+              <title>Write Post | MyBrary</title>
+            </Helmet>
+            <ListTitle title={"😀 Write Post 😁"} moreLink={"/seeMyPost"} />
+            <WriteBox>
+              <form onSubmit={writeOnSubmit}>
+                <CustomAnimationInput
+                  id={"postDate"}
+                  type={"text"}
+                  {...postInputDate}
+                  labelText={"날짜"}
+                  disabled={true}
+                  post={true}
+                  aniBefore={"12px"}
+                  aniAfter={"14px"}
                 />
-                나만 간직하기
-              </Aasdfas>
-              <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
-            </PushMybraryBtnBox>
-          </form>
-        </WriteBox>
-      </Container>
-    </WritePost>
+                <CustomAnimationInput
+                  id={"postTitle"}
+                  type={"text"}
+                  value={
+                    data && data.DetailBook
+                      ? data.DetailBook.title + " / " + data.DetailBook.author
+                      : postInputTitle.value
+                  }
+                  setValue={postInputTitle.setValue}
+                  onChange={postInputTitle.onChange}
+                  labelText={"제목"}
+                  disabled={Boolean(book)}
+                  post={true}
+                  aniBefore={"12px"}
+                  aniAfter={"14px"}
+                />
+                <AnimationTextarea
+                  id={"postTitle"}
+                  {...postInputContents}
+                  labelText={"내용"}
+                />
+                <PushMybraryBtnBox>
+                  <Aasdfas>
+                    <Infkdks
+                      value={postInputSecret.value}
+                      onChange={() =>
+                        postInputSecret.setValue(!postInputSecret.value)
+                      }
+                      type={"checkbox"}
+                      checked={postInputSecret.value}
+                    />
+                    나만 간직하기
+                  </Aasdfas>
+                  <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
+                </PushMybraryBtnBox>
+              </form>
+            </WriteBox>
+          </Container>
+        </WritePost>
+      )}
+    </>
   );
 };

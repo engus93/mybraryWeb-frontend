@@ -11,6 +11,9 @@ export const SEE_MY_POST = gql`
       user {
         username
       }
+      files {
+        url
+      }
     }
   }
 `;
@@ -25,6 +28,9 @@ export const SEE_MY_POST_PAGING = gql`
       createdAt
       user {
         username
+      }
+      files {
+        url
       }
     }
   }
