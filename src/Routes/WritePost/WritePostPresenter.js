@@ -8,6 +8,7 @@ import ListTitle from "./../../Components/ListTitle";
 import AnimationInput from "./../../Components/AnimationInput";
 import AnimationTextarea from "../../Components/AnimationTextarea";
 import Loader from "./../../Components/Loader";
+import FullImage from "./../../Components/FullImage";
 import { PostBookCover } from "../../Components/Icons";
 
 // Style Components
@@ -83,6 +84,9 @@ const SecretCheck = styled.input`
 `;
 
 const ImgUploadBtn = styled.button`
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
   margin: 5px 0;
   padding: 5px 7px;
   border-radius: 4px;
@@ -98,9 +102,15 @@ export default ({
   postInputDate,
   postInputTitle,
   postInputContents,
+  postInputUploadBtn,
   postInputBookCover,
+  setPostInputBookCover,
+  showBookCover,
+  setShowBookCover,
+  postPreviewImg,
   postInputSecret,
   writeOnSubmit,
+  onChangeFile,
   book,
   loading,
   data
@@ -150,27 +160,48 @@ export default ({
                 />
                 <PushMybraryBtnBox marginTop={10}>
                   <input
+                    ref={postInputUploadBtn}
                     style={{ display: "none" }}
                     id={"docuom"}
                     type={"file"}
-                    onChange={postInputBookCover.onChange}
-                    value={postInputBookCover.value}
+                    accept="image/*"
+                    onChange={onChangeFile}
+                    value={postInputBookCover}
                   />
-                  <ImgUploadBtn
-                    type={"button"}
-                    onClick={() => {
-                      document.getElementById("docuom").click();
-                    }}
-                  >
-                    Upload Book Cover
-                  </ImgUploadBtn>
-                  {postInputBookCover.value && (
+                  {/* 이미지 파일 없으면 업로드 */}
+                  {!postInputBookCover && (
+                    <ImgUploadBtn
+                      type={"button"}
+                      onClick={() => {
+                        postInputUploadBtn.current.click();
+                      }}
+                    >
+                      Upload Cover
+                    </ImgUploadBtn>
+                  )}
+                  {/* 있으면 삭제 프로세스  */}
+                  {postInputBookCover && (
+                    <ImgUploadBtn
+                      type={"button"}
+                      onClick={() => {
+                        setPostInputBookCover("");
+                      }}
+                    >
+                      Delete Cover
+                    </ImgUploadBtn>
+                  )}
+                  {postInputBookCover && (
                     <PostBookCover
                       size={20}
-                      onClick={() => console.log("사진")}
+                      onClick={() => setShowBookCover(!showBookCover)}
                     />
                   )}
                 </PushMybraryBtnBox>
+                <FullImage
+                  targetRef={postPreviewImg}
+                  showBookCover={showBookCover}
+                  setShowBookCover={setShowBookCover}
+                />
                 <PushMybraryBtnBox marginTop={10}>
                   <Aasdfas>
                     <SecretCheck

@@ -1,5 +1,5 @@
 // Import Modules
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // Import My Files
 import WritePostPresenter from "./WritePostPresenter";
@@ -19,8 +19,11 @@ export default withRouter(({ history, match: { params: { book } } }) => {
 
   const postInputTitle = useInput("");
   const postInputContents = useInput("");
-  const postInputBookCover = useInput("");
+  const [postInputBookCover, setPostInputBookCover] = useState("");
   const postInputSecret = useInput(true);
+  const postInputUploadBtn = useRef();
+  const postPreviewImg = useRef();
+  const [showBookCover, setShowBookCover] = useState(false);
 
   // 책 검색해서 뿌려두기
   const { loading, data } = useQuery(WRITE_BOOK, {
@@ -59,14 +62,42 @@ export default withRouter(({ history, match: { params: { book } } }) => {
     }
   };
 
+  const onChangeFile = event => {
+    const {
+      target: { value, files }
+    } = event;
+    // File Input 이미지 선택시
+    if (files.length > 0) {
+      // 파일 리더 생성
+      const reader = new FileReader();
+      // URL 생성
+      reader.readAsDataURL(files[0]);
+      // 데이터 읽고 뿌리기
+      reader.onload = () => {
+        postPreviewImg.current.src = reader.result;
+      };
+      // Value Change
+      setPostInputBookCover(value);
+    } else {
+      // File Input 이미지 취소시
+      setPostInputBookCover("");
+    }
+  };
+
   return (
     <WritePostPresenter
       postInputDate={postInputDate}
       postInputTitle={postInputTitle}
       postInputContents={postInputContents}
+      postInputUploadBtn={postInputUploadBtn}
       postInputBookCover={postInputBookCover}
+      setPostInputBookCover={setPostInputBookCover}
       postInputSecret={postInputSecret}
       writeOnSubmit={writeOnSubmit}
+      onChangeFile={onChangeFile}
+      postPreviewImg={postPreviewImg}
+      showBookCover={showBookCover}
+      setShowBookCover={setShowBookCover}
       book={book}
       loading={loading}
       data={data}
