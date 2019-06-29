@@ -8,6 +8,7 @@ import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 // Import My Files
 import { DotMenu, UpArrow, DownArrow } from "./Icons";
 import { PostBookCover } from "./Icons";
+import FullImage from "./FullImage";
 
 const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
@@ -108,6 +109,7 @@ const CustomPostBookCover = styled(PostBookCover)`
 const PostBlock = ({ id, date, author, title, content, cover }) => {
   const [moreBtn, setMoreBtn] = useState(true);
   const [deleteMenu, setDeleteMenu] = useState(false);
+  const [showBookCover, setShowBookCover] = useState(false);
 
   return (
     <PostBlockFrame id={id}>
@@ -115,7 +117,18 @@ const PostBlock = ({ id, date, author, title, content, cover }) => {
         {deleteMenu && <CancelClickBox onClick={() => setDeleteMenu(false)} />}
         <SortBox type={"btn"}>
           {cover !== "" && (
-            <CustomPostBookCover onClick={() => console.log("zz")} />
+            <>
+              <CustomPostBookCover
+                onClick={() => setShowBookCover(!showBookCover)}
+              />
+              <FullImage
+                targetSrc={
+                  "https://i.pinimg.com/236x/ae/c9/ea/aec9eadd89aa51a9b753b221f3bcce12.jpg"
+                }
+                showBookCover={showBookCover}
+                setShowBookCover={setShowBookCover}
+              />
+            </>
           )}
           {/* Flex를 위한 빈 값 */}
           {cover === "" && <div />}

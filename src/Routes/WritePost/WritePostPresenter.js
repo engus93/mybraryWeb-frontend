@@ -8,6 +8,8 @@ import ListTitle from "./../../Components/ListTitle";
 import AnimationInput from "./../../Components/AnimationInput";
 import AnimationTextarea from "../../Components/AnimationTextarea";
 import Loader from "./../../Components/Loader";
+import FullImage from "./../../Components/FullImage";
+import { PostBookCover } from "../../Components/Icons";
 
 // Style Components
 const WritePost = styled.div``;
@@ -57,7 +59,7 @@ const PushMybraryBtnBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: ${props => (props.marginTop ? props.marginTop : 20)}px;
 `;
 
 const PushMybraryBtn = styled.button`
@@ -77,16 +79,38 @@ const Aasdfas = styled.div`
   align-items: center;
 `;
 
-const Infkdks = styled.input`
+const SecretCheck = styled.input`
   width: auto;
+`;
+
+const ImgUploadBtn = styled.button`
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+  margin: 5px 0;
+  padding: 5px 7px;
+  border-radius: 4px;
+  background-color: #eee;
+  transition: 0.3s;
+  box-shadow: ${props => props.theme.btnBoxShadow};
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 export default ({
   postInputDate,
   postInputTitle,
   postInputContents,
+  postInputUploadBtn,
+  postInputBookCover,
+  setPostInputBookCover,
+  showBookCover,
+  setShowBookCover,
+  postPreviewImg,
   postInputSecret,
   writeOnSubmit,
+  onChangeFile,
   book,
   loading,
   data
@@ -134,9 +158,53 @@ export default ({
                   {...postInputContents}
                   labelText={"내용"}
                 />
-                <PushMybraryBtnBox>
+                <PushMybraryBtnBox marginTop={10}>
+                  <input
+                    ref={postInputUploadBtn}
+                    style={{ display: "none" }}
+                    id={"docuom"}
+                    type={"file"}
+                    accept="image/*"
+                    onChange={onChangeFile}
+                    value={postInputBookCover}
+                  />
+                  {/* 이미지 파일 없으면 업로드 */}
+                  {!postInputBookCover && (
+                    <ImgUploadBtn
+                      type={"button"}
+                      onClick={() => {
+                        postInputUploadBtn.current.click();
+                      }}
+                    >
+                      Upload Cover
+                    </ImgUploadBtn>
+                  )}
+                  {/* 있으면 삭제 프로세스  */}
+                  {postInputBookCover && (
+                    <ImgUploadBtn
+                      type={"button"}
+                      onClick={() => {
+                        setPostInputBookCover("");
+                      }}
+                    >
+                      Delete Cover
+                    </ImgUploadBtn>
+                  )}
+                  {postInputBookCover && (
+                    <PostBookCover
+                      size={20}
+                      onClick={() => setShowBookCover(!showBookCover)}
+                    />
+                  )}
+                </PushMybraryBtnBox>
+                <FullImage
+                  targetRef={postPreviewImg}
+                  showBookCover={showBookCover}
+                  setShowBookCover={setShowBookCover}
+                />
+                <PushMybraryBtnBox marginTop={10}>
                   <Aasdfas>
-                    <Infkdks
+                    <SecretCheck
                       value={postInputSecret.value}
                       onChange={() =>
                         postInputSecret.setValue(!postInputSecret.value)
