@@ -19,6 +19,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
 
   const postInputTitle = useInput("");
   const postInputContents = useInput("");
+  const postInputBookCover = useInput("");
   const postInputSecret = useInput(true);
 
   // 책 검색해서 뿌려두기
@@ -63,6 +64,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
       postInputDate={postInputDate}
       postInputTitle={postInputTitle}
       postInputContents={postInputContents}
+      postInputBookCover={postInputBookCover}
       postInputSecret={postInputSecret}
       writeOnSubmit={writeOnSubmit}
       book={book}

@@ -8,6 +8,7 @@ import ListTitle from "./../../Components/ListTitle";
 import AnimationInput from "./../../Components/AnimationInput";
 import AnimationTextarea from "../../Components/AnimationTextarea";
 import Loader from "./../../Components/Loader";
+import { PostBookCover } from "../../Components/Icons";
 
 // Style Components
 const WritePost = styled.div``;
@@ -57,7 +58,7 @@ const PushMybraryBtnBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: ${props => (props.marginTop ? props.marginTop : 20)}px;
 `;
 
 const PushMybraryBtn = styled.button`
@@ -77,14 +78,27 @@ const Aasdfas = styled.div`
   align-items: center;
 `;
 
-const Infkdks = styled.input`
+const SecretCheck = styled.input`
   width: auto;
+`;
+
+const ImgUploadBtn = styled.button`
+  margin: 5px 0;
+  padding: 5px 7px;
+  border-radius: 4px;
+  background-color: #eee;
+  transition: 0.3s;
+  box-shadow: ${props => props.theme.btnBoxShadow};
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 export default ({
   postInputDate,
   postInputTitle,
   postInputContents,
+  postInputBookCover,
   postInputSecret,
   writeOnSubmit,
   book,
@@ -134,9 +148,32 @@ export default ({
                   {...postInputContents}
                   labelText={"내용"}
                 />
-                <PushMybraryBtnBox>
+                <PushMybraryBtnBox marginTop={10}>
+                  <input
+                    style={{ display: "none" }}
+                    id={"docuom"}
+                    type={"file"}
+                    onChange={postInputBookCover.onChange}
+                    value={postInputBookCover.value}
+                  />
+                  <ImgUploadBtn
+                    type={"button"}
+                    onClick={() => {
+                      document.getElementById("docuom").click();
+                    }}
+                  >
+                    Upload Book Cover
+                  </ImgUploadBtn>
+                  {postInputBookCover.value && (
+                    <PostBookCover
+                      size={20}
+                      onClick={() => console.log("사진")}
+                    />
+                  )}
+                </PushMybraryBtnBox>
+                <PushMybraryBtnBox marginTop={10}>
                   <Aasdfas>
-                    <Infkdks
+                    <SecretCheck
                       value={postInputSecret.value}
                       onChange={() =>
                         postInputSecret.setValue(!postInputSecret.value)
