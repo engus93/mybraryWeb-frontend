@@ -26,7 +26,7 @@ export default () => {
       year,
       month
     },
-    fetchPolicy: "network-only"
+    fetchPolicy: "no-cache"
   });
 
   // Next Data Response

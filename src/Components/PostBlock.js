@@ -122,9 +122,7 @@ const PostBlock = ({ id, date, author, title, content, cover }) => {
                 onClick={() => setShowBookCover(!showBookCover)}
               />
               <FullImage
-                targetSrc={
-                  "https://i.pinimg.com/236x/ae/c9/ea/aec9eadd89aa51a9b753b221f3bcce12.jpg"
-                }
+                targetSrc={cover}
                 showBookCover={showBookCover}
                 setShowBookCover={setShowBookCover}
               />

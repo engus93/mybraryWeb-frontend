@@ -1,5 +1,14 @@
 import { gql } from "apollo-boost";
 
+// Apollo Client
+export const ME = gql`
+  {
+    me {
+      id
+    }
+  }
+`;
+
 export const WRITE_POST = gql`
   mutation writePost(
     $title: String!

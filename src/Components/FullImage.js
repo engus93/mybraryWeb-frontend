@@ -19,7 +19,7 @@ const Container = styled.section`
 `;
 
 const CenterImg = styled.img`
-  width: 100%;
+  width: 90%;
   height: 90%;
   object-fit: contain;
   z-index: 31;
