@@ -113,7 +113,9 @@ export default ({
   onChangeFile,
   book,
   loading,
-  data
+  data,
+  showIcon,
+  setShowIcon
 }) => {
   return (
     <>
@@ -169,7 +171,7 @@ export default ({
                     value={postInputBookCover}
                   />
                   {/* 이미지 파일 없으면 업로드 */}
-                  {!postInputBookCover && (
+                  {!showIcon && (
                     <ImgUploadBtn
                       type={"button"}
                       onClick={() => {
@@ -180,17 +182,17 @@ export default ({
                     </ImgUploadBtn>
                   )}
                   {/* 있으면 삭제 프로세스  */}
-                  {postInputBookCover && (
+                  {showIcon && (
                     <ImgUploadBtn
                       type={"button"}
                       onClick={() => {
-                        setPostInputBookCover("");
+                        setShowIcon(false);
                       }}
                     >
                       Delete Cover
                     </ImgUploadBtn>
                   )}
-                  {postInputBookCover && (
+                  {showIcon && (
                     <PostBookCover
                       size={20}
                       onClick={() => setShowBookCover(!showBookCover)}
