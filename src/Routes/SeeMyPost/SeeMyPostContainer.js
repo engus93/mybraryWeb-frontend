@@ -65,7 +65,7 @@ export default () => {
     }
   };
 
-  // Infinity Scroll Process
+  // Paging Process
   const pagingProcess = async () => {
     // 더 이상 내용이 없으면 페이징 차단
     if (eventPass) {

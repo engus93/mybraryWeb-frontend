@@ -107,12 +107,20 @@ const CustomPostBookCover = styled(PostBookCover)`
   }
 `;
 
-const PostBlock = ({ id, date, author, title, content, cover, likes }) => {
+const PostBlock = ({
+  id,
+  date,
+  author,
+  title,
+  content,
+  cover,
+  likes,
+  isLiked
+}) => {
   const [moreBtn, setMoreBtn] = useState(true);
   const [deleteMenu, setDeleteMenu] = useState(false);
   const [showBookCover, setShowBookCover] = useState(false);
-
-  console.log(likes);
+  const [liked, setLiked] = useState(isLiked);
 
   return (
     <PostBlockFrame id={id}>
@@ -133,15 +141,19 @@ const PostBlock = ({ id, date, author, title, content, cover, likes }) => {
           )}
           {/* Flex를 위한 빈 값 */}
           {cover === "" && <div />}
-          {likes && (
+          {(likes || likes === 0) && (
             <>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <HeartBtn size={16} fill={"red"} />
+                <HeartBtn
+                  size={16}
+                  fill={liked ? "red" : "grey"}
+                  onClick={() => setLiked(!liked)}
+                />
                 {likes}
               </div>
             </>
           )}
-          {!likes && (
+          {!likes && likes !== 0 && (
             <>
               <CustomDotMenu size={16} onClick={() => setDeleteMenu(true)} />
               {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
@@ -191,7 +203,8 @@ PostBlock.propTypes = {
   author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  like: PropTypes.number
+  like: PropTypes.number,
+  isLiked: PropTypes.bool
 };
 
 export default PostBlock;

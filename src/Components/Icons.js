@@ -236,7 +236,7 @@ export const PostBookCover = ({ className, onClick, size }) => (
 
 export const HeartBtn = ({ className, size = 24, fill = "grey", onClick }) => (
   <svg
-    style={{ cursor: "pointer", marginRight: "5px" }}
+    style={{ cursor: "pointer", marginRight: "5px", transition: "0.2s" }}
     className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
