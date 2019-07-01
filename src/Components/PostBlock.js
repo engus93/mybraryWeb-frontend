@@ -9,6 +9,7 @@ import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 import { DotMenu, UpArrow, DownArrow } from "./Icons";
 import { PostBookCover } from "./Icons";
 import FullImage from "./FullImage";
+import { HeartBtn } from "./Icons";
 
 const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
@@ -106,10 +107,12 @@ const CustomPostBookCover = styled(PostBookCover)`
   }
 `;
 
-const PostBlock = ({ id, date, author, title, content, cover }) => {
+const PostBlock = ({ id, date, author, title, content, cover, likes }) => {
   const [moreBtn, setMoreBtn] = useState(true);
   const [deleteMenu, setDeleteMenu] = useState(false);
   const [showBookCover, setShowBookCover] = useState(false);
+
+  console.log(likes);
 
   return (
     <PostBlockFrame id={id}>
@@ -130,8 +133,20 @@ const PostBlock = ({ id, date, author, title, content, cover }) => {
           )}
           {/* Flex를 위한 빈 값 */}
           {cover === "" && <div />}
-          <CustomDotMenu size={12} onClick={() => setDeleteMenu(true)} />
-          {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
+          {likes && (
+            <>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <HeartBtn size={16} fill={"red"} />
+                {likes}
+              </div>
+            </>
+          )}
+          {!likes && (
+            <>
+              <CustomDotMenu size={16} onClick={() => setDeleteMenu(true)} />
+              {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
+            </>
+          )}
         </SortBox>
         <SortBox type={"info"}>
           <span>{date}</span>
@@ -175,7 +190,8 @@ PostBlock.propTypes = {
   date: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
+  like: PropTypes.number
 };
 
 export default PostBlock;
