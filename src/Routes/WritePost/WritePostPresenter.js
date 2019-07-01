@@ -12,7 +12,9 @@ import FullImage from "./../../Components/FullImage";
 import { PostBookCover } from "../../Components/Icons";
 
 // Style Components
-const WritePost = styled.div``;
+const WritePost = styled.div`
+  background-color: ${props => props.theme.whiteBG};
+`;
 
 const Container = styled.section`
   width: ${props => props.theme.wrapperWidth};
@@ -187,6 +189,7 @@ export default ({
                       type={"button"}
                       onClick={() => {
                         setShowIcon(false);
+                        setPostInputBookCover("");
                       }}
                     >
                       Delete Cover

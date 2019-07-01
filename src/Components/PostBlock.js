@@ -9,6 +9,10 @@ import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 import { DotMenu, UpArrow, DownArrow } from "./Icons";
 import { PostBookCover } from "./Icons";
 import FullImage from "./FullImage";
+import { HeartBtn } from "./Icons";
+import { gql } from "apollo-boost";
+import { useMutation } from "react-apollo-hooks";
+import { toast } from "react-toastify";
 
 const ResponsiveLines = responsiveHOC()(HTMLEllipsis);
 
@@ -106,10 +110,50 @@ const CustomPostBookCover = styled(PostBookCover)`
   }
 `;
 
-const PostBlock = ({ id, date, author, title, content, cover }) => {
+// Apollo Client
+const TOGGLE_LIKE = gql`
+  mutation toggleLike($postId: String!, $action: String!) {
+    toggleLike(postId: $postId, action: $action)
+  }
+`;
+
+const PostBlock = ({
+  id,
+  date,
+  author,
+  title,
+  content,
+  cover,
+  likes,
+  isLiked
+}) => {
   const [moreBtn, setMoreBtn] = useState(true);
   const [deleteMenu, setDeleteMenu] = useState(false);
   const [showBookCover, setShowBookCover] = useState(false);
+  const [liked, setLiked] = useState(isLiked);
+  const [likesCount, setLikesCount] = useState(likes);
+
+  const MutationToggleLike = useMutation(TOGGLE_LIKE, {
+    variables: {
+      postId: id,
+      action: liked ? "likeOff" : "likeOn"
+    }
+  });
+
+  const toggleLikeProcess = async () => {
+    setLiked(!liked);
+    try {
+      if (!liked) {
+        setLikesCount(likesCount + 1);
+        await MutationToggleLike();
+      } else {
+        setLikesCount(likesCount - 1);
+        await MutationToggleLike();
+      }
+    } catch (error) {
+      toast.error("오류가 발생했습니다. 다시 시도해주세요. 😢");
+    }
+  };
 
   return (
     <PostBlockFrame id={id}>
@@ -130,8 +174,24 @@ const PostBlock = ({ id, date, author, title, content, cover }) => {
           )}
           {/* Flex를 위한 빈 값 */}
           {cover === "" && <div />}
-          <CustomDotMenu size={12} onClick={() => setDeleteMenu(true)} />
-          {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
+          {(likesCount || likesCount === 0) && (
+            <>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <HeartBtn
+                  size={16}
+                  fill={liked ? "red" : "grey"}
+                  onClick={toggleLikeProcess}
+                />
+                {likesCount}
+              </div>
+            </>
+          )}
+          {!likesCount && likesCount !== 0 && (
+            <>
+              <CustomDotMenu size={16} onClick={() => setDeleteMenu(true)} />
+              {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
+            </>
+          )}
         </SortBox>
         <SortBox type={"info"}>
           <span>{date}</span>
@@ -175,7 +235,9 @@ PostBlock.propTypes = {
   date: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
+  like: PropTypes.number,
+  isLiked: PropTypes.bool
 };
 
 export default PostBlock;

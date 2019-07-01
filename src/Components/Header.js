@@ -247,9 +247,15 @@ export default withRouter(({ history }) => {
                 </MenuLink>
               </MenuCategoty>
               <MenuCategoty>
-                <MenuLink to={"/seeAllPost"}>
+                <MenuLink to={"/seeOtherPost/new"}>
                   <OtherPosts size={14} />
-                  <Span text={"Other Posts"} marginValue={"0 0 0 7px"} />
+                  <Span text={"All Posts"} marginValue={"0 0 0 7px"} />
+                </MenuLink>
+              </MenuCategoty>
+              <MenuCategoty>
+                <MenuLink to={"/seeOtherPost/best"}>
+                  <OtherPosts size={14} />
+                  <Span text={"Best Posts"} marginValue={"0 0 0 7px"} />
                 </MenuLink>
               </MenuCategoty>
               <MenuCategoty>
