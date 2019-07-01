@@ -122,7 +122,7 @@ export default ({
                         author={post.user.username}
                         title={post.title}
                         content={decode(post.contents)}
-                        cover={post.files.length > 0 ? post.files[0].url : ""}
+                        cover={post.file ? post.file.url : ""}
                       />
                     );
                   })}
@@ -140,6 +140,7 @@ export default ({
                         author={post.author}
                         title={post.title}
                         content={post.contents}
+                        cover={post.file ? post.file.url : ""}
                       />
                     );
                   })}

@@ -1,14 +1,14 @@
 // Import Modules
 import React, { useState, useEffect, useRef } from "react";
-
-// Import My Files
-import WritePostPresenter from "./WritePostPresenter";
-import useInput from "../../Hooks/useInput";
 import { useMutation, useQuery } from "react-apollo-hooks";
-import { WRITE_POST, WRITE_BOOK, ME } from "./WritePostQueries";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
+
+// Import My Files
+import useInput from "../../Hooks/useInput";
+import WritePostPresenter from "./WritePostPresenter";
 import { storageRef } from "../../Firebase/ImageUpload";
+import { WRITE_POST, WRITE_BOOK, ME } from "./WritePostQueries";
 
 export default withRouter(({ history, match: { params: { book } } }) => {
   // 오늘 날짜
@@ -25,12 +25,16 @@ export default withRouter(({ history, match: { params: { book } } }) => {
 
   const postInputTitle = useInput("");
   const postInputContents = useInput("");
+  //
   const [postInputBookCover, setPostInputBookCover] = useState("");
   const postInputSecret = useInput(true);
   const postInputUploadBtn = useRef();
   const postPreviewImg = useRef();
+  // Image display boolean
   const [showBookCover, setShowBookCover] = useState(false);
+  // Icon display boolean
   const [showIcon, setShowIcon] = useState(false);
+  // Files Array
   const [fileObj, setFileObj] = useState("");
   // 책 검색해서 뿌려두기
   const { loading, data } = useQuery(WRITE_BOOK, {
@@ -64,7 +68,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
       return toast.error("내용이 아직 없습니다. 🙄");
     } else {
       // 사진이 존재 유무
-      if (postInputBookCover !== "") {
+      if (showIcon) {
         // 알라딘 API Cover URL
         if (data && data.DetailBook && data.DetailBook.cover) {
           MutationWritePost({
@@ -72,7 +76,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
               title: postInputTitle.value,
               contents: postInputContents.value.replace(/\n/g, "<br>"),
               secret: postInputSecret.value,
-              files: data.DetailBook.cover
+              file: data.DetailBook.cover
             }
           });
           // 내가 등록한 사진
@@ -108,7 +112,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
                     title: postInputTitle.value,
                     contents: postInputContents.value.replace(/\n/g, "<br>"),
                     secret: postInputSecret.value,
-                    files: url
+                    file: url
                   }
                 });
               });
@@ -121,7 +125,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
             title: postInputTitle.value,
             contents: postInputContents.value.replace(/\n/g, "<br>"),
             secret: postInputSecret.value,
-            files: ""
+            file: ""
           }
         });
       }

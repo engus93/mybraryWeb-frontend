@@ -187,6 +187,7 @@ export default ({
                       type={"button"}
                       onClick={() => {
                         setShowIcon(false);
+                        setPostInputBookCover("");
                       }}
                     >
                       Delete Cover
