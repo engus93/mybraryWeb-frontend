@@ -26,6 +26,7 @@ const LoggedInRoutes = () => (
       <Route exact path="/seeMyPost" component={SeeMyPost} />
       <Route exact path="/writePost" component={WritePost} />
       <Route exact path="/writePost/:book" component={WritePost} />
+      <Route exact path="/editPost/:postId" component={WritePost} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/book-list/:gener" component={BookList} />
       <Route exact path="/:itemId" component={BookDetail} />

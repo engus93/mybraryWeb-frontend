@@ -1,6 +1,7 @@
 // Import Modules
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "react-apollo-hooks";
+import { withRouter } from "react-router-dom";
 
 // Import My Files
 import SeeMyPostPresenter from "./SeeMyPostPresenter";
@@ -8,7 +9,7 @@ import { SEE_MY_POST, SEE_MY_POST_PAGING } from "./SeeMyPostQueries";
 import { toast } from "react-toastify";
 import { DELETE_POST } from "./SeeMyPostQueries";
 
-export default () => {
+export default withRouter(({ history }) => {
   const [page, setPage] = useState(1);
   const [pagingLoading, setPagingLoading] = useState(false);
   const [pagingList, setPagingList] = useState([]);
@@ -93,15 +94,20 @@ export default () => {
   const deletePostProcess = async event => {
     if (
       event.path[0].attributes.length > 0 &&
+      event.path[0].attributes[0].value === "Edit Post"
+    ) {
+      history.push(`/editPost/${event.path[4].id}`);
+    } else if (
+      event.path[0].attributes.length > 0 &&
       event.path[0].attributes[0].value === "Delete Post"
     ) {
       try {
         MutationDeletePost({
           variables: {
-            postId: event.path[3].id
+            postId: event.path[4].id
           }
         });
-        event.path[3].remove();
+        event.path[4].remove();
         toast.success("일기가 삭제 되었습니다.");
       } catch (error) {
         setDeleteLoading(false);
@@ -134,4 +140,4 @@ export default () => {
       deleteLoading={deleteLoading}
     />
   );
-};
+});

@@ -81,14 +81,17 @@ const CustomUpArrow = styled(UpArrow)`
 const MenuBox = styled.div`
   display: inline-block;
   position: absolute;
-  background-color: aliceblue;
-  padding: 10px;
+  background-color: ${props => props.theme.whiteBG};
   top: 5px;
   right: 5px;
-  border-radius: 7px;
   z-index: 31;
   cursor: pointer;
   box-shadow: ${props => props.theme.boxShadow};
+`;
+
+const MenuBtn = styled.div`
+  padding: 7px 15px;
+  border: 1px solid #eee;
 `;
 
 const CancelClickBox = styled.div`
@@ -189,7 +192,14 @@ const PostBlock = ({
           {!likesCount && likesCount !== 0 && (
             <>
               <CustomDotMenu size={16} onClick={() => setDeleteMenu(true)} />
-              {deleteMenu && <MenuBox value={"Delete Post"}>삭제하기</MenuBox>}
+              {deleteMenu && (
+                <>
+                  <MenuBox>
+                    <MenuBtn value={"Edit Post"}>수정하기</MenuBtn>
+                    <MenuBtn value={"Delete Post"}>삭제하기</MenuBtn>
+                  </MenuBox>
+                </>
+              )}
             </>
           )}
         </SortBox>

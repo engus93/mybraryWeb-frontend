@@ -118,7 +118,8 @@ export default ({
   data,
   showIcon,
   setShowIcon,
-  uploadLoading
+  uploadLoading,
+  postId
 }) => {
   return (
     <>
@@ -173,28 +174,33 @@ export default ({
                     onChange={onChangeFile}
                     value={postInputBookCover}
                   />
-                  {/* 이미지 파일 없으면 업로드 */}
-                  {!showIcon && (
-                    <ImgUploadBtn
-                      type={"button"}
-                      onClick={() => {
-                        postInputUploadBtn.current.click();
-                      }}
-                    >
-                      Upload Cover
-                    </ImgUploadBtn>
-                  )}
-                  {/* 있으면 삭제 프로세스  */}
-                  {showIcon && (
-                    <ImgUploadBtn
-                      type={"button"}
-                      onClick={() => {
-                        setShowIcon(false);
-                        setPostInputBookCover("");
-                      }}
-                    >
-                      Delete Cover
-                    </ImgUploadBtn>
+                  {postId && <div />}
+                  {!postId && (
+                    <>
+                      {/* 이미지 파일 없으면 업로드 */}
+                      {!showIcon && (
+                        <ImgUploadBtn
+                          type={"button"}
+                          onClick={() => {
+                            postInputUploadBtn.current.click();
+                          }}
+                        >
+                          Upload Cover
+                        </ImgUploadBtn>
+                      )}
+                      {/* 있으면 삭제 프로세스  */}
+                      {showIcon && (
+                        <ImgUploadBtn
+                          type={"button"}
+                          onClick={() => {
+                            setShowIcon(false);
+                            setPostInputBookCover("");
+                          }}
+                        >
+                          Delete Cover
+                        </ImgUploadBtn>
+                      )}
+                    </>
                   )}
                   {showIcon && (
                     <PostBookCover
@@ -220,7 +226,9 @@ export default ({
                     />
                     나만 간직하기
                   </Aasdfas>
-                  <PushMybraryBtn>서재에 넣기</PushMybraryBtn>
+                  <PushMybraryBtn>
+                    {!postId ? "서재에 넣기" : "다시 쓰기"}
+                  </PushMybraryBtn>
                 </PushMybraryBtnBox>
               </form>
             </WriteBox>
@@ -231,7 +239,7 @@ export default ({
                   width: "100%",
                   height: "100%",
                   backgroundColor: "black",
-                  opacity: "0.7",
+                  opacity: "0.9",
                   top: "0",
                   left: "0",
                   zIndex: "30"
