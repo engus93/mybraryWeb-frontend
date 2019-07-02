@@ -10,7 +10,15 @@ import { toast } from "react-toastify";
 
 export default withRouter(({ history: { location } }) => {
   useEffect(() => {
+    // 어느 페이지를 원하는지 체크
     setActionBest(location.pathname.split("/seeOtherPost/")[1] === "best");
+    // 변수들 세팅
+    setYear(new Date().getFullYear());
+    setMonth(new Date().getMonth() + 1);
+    setPage(1);
+    setPagingList([]);
+    setEventPass(true);
+    setPagingLoading(false);
   }, [location.pathname]);
 
   const [year, setYear] = useState(new Date().getFullYear());

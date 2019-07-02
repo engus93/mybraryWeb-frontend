@@ -8,7 +8,7 @@ const Container = styled.button`
   position: fixed;
   z-index: 20;
   right: 2vw;
-  top: 89vh;
+  bottom: 2vh;
   /* Design */
   display: flex;
   align-items: center;
@@ -35,13 +35,15 @@ const FloatingWriteCustom = styled(FloatingWrite)`
 export default withRouter(({ history: { location: { pathname } } }) => {
   return (
     <>
-      {pathname && pathname !== "/writePost" && (
-        <Link to={"/writePost"}>
-          <Container>
-            <FloatingWriteCustom />
-          </Container>
-        </Link>
-      )}
+      {pathname &&
+        pathname !== "/writePost" &&
+        Boolean(pathname.indexOf("/editPost")) && (
+          <Link to={"/writePost"}>
+            <Container>
+              <FloatingWriteCustom />
+            </Container>
+          </Link>
+        )}
     </>
   );
 });

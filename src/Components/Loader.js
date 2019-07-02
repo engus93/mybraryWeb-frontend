@@ -24,10 +24,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Loader = ({ size = 48, height = "90vh" }) => {
+const Loader = ({ size = 48, height = "90vh", fill = "black" }) => {
   return (
     <Container height={height}>
-      <Library size={size} />
+      <Library size={size} fill={fill} />
     </Container>
   );
 };
