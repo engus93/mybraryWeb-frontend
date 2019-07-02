@@ -44,6 +44,8 @@ export default withRouter(({ history, match: { params: { book } } }) => {
     }
   });
 
+  const [uploadLoading, setUploadLoading] = useState(false);
+
   const {
     data: { me }
   } = useQuery(ME);
@@ -67,6 +69,8 @@ export default withRouter(({ history, match: { params: { book } } }) => {
     } else if (postInputContents.value === "") {
       return toast.error("내용이 아직 없습니다. 🙄");
     } else {
+      // 업로드 시작
+      setUploadLoading(true);
       // 사진이 존재 유무
       if (showIcon) {
         // 알라딘 API Cover URL
@@ -103,6 +107,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
               toast.error(
                 "알 수 없는 오류가 발생했습니다. 다시 한번 시도해주세요."
               );
+              setUploadLoading(false);
             },
             async () => {
               // complete function ....
@@ -179,6 +184,7 @@ export default withRouter(({ history, match: { params: { book } } }) => {
       data={data}
       showIcon={showIcon}
       setShowIcon={setShowIcon}
+      uploadLoading={uploadLoading}
     />
   );
 });

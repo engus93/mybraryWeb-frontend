@@ -201,15 +201,12 @@ const PostBlock = ({
           unsafeHTML={title}
           maxLine={moreBtn ? "1" : "1000"}
           ellipsis="..."
-          // trimRight
           basedOn="letters"
         />
         <Content
-          // text={content}
           unsafeHTML={content}
           maxLine={moreBtn ? "3" : "1000"}
           ellipsis="..."
-          // trimRight
           basedOn="letters"
         />
       </Container>

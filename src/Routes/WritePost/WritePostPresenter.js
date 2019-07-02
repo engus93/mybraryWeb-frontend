@@ -117,7 +117,8 @@ export default ({
   loading,
   data,
   showIcon,
-  setShowIcon
+  setShowIcon,
+  uploadLoading
 }) => {
   return (
     <>
@@ -223,6 +224,22 @@ export default ({
                 </PushMybraryBtnBox>
               </form>
             </WriteBox>
+            {uploadLoading && (
+              <div
+                style={{
+                  position: "fixed",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "black",
+                  opacity: "0.7",
+                  top: "0",
+                  left: "0",
+                  zIndex: "30"
+                }}
+              >
+                <Loader fill={"white"} />
+              </div>
+            )}
           </Container>
         </WritePost>
       )}

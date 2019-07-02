@@ -91,8 +91,8 @@ const BookImg = styled.img`
 `;
 
 const BookTitle = styled(ResponsiveLines)`
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   color: white;
   font-size: 24px;
   margin-bottom: 7px;
@@ -105,6 +105,7 @@ const BookTitle = styled(ResponsiveLines)`
     font-size: 18px;
   }
   @media (max-width: 576px) {
+    padding: 0 10px;
     font-weight: 600;
     font-size: 16px;
     justify-content: center;

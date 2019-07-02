@@ -8,7 +8,7 @@ const Container = styled.button`
   position: fixed;
   z-index: 20;
   right: 2vw;
-  top: 89vh;
+  bottom: 2vh;
   /* Design */
   display: flex;
   align-items: center;
