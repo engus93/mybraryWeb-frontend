@@ -5,7 +5,7 @@ export default new ApolloClient({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://localhost:4000"
-      : "https://mybrary-prisma.herokuapp.com/",
+      : process.env.REACT_APP_PRISMA_SERVER,
   clientState: {
     defaults: defaults,
     resolvers: resolvers
