@@ -147,6 +147,7 @@ export default withRouter(() => {
         const {
           data: { authentication: token }
         } = await authenticationMutation();
+
         if (token === "" || token === undefined) {
           // eslint-disable-next-line no-throw-literal
           throw "알 수 없는 오류가 발생했습니다. 다시 한번 시도해주세요.";

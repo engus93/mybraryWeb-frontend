@@ -48,75 +48,79 @@ export default ({
           <section>
             <ListTitle title={bestSeller} moreLink={"bestSeller"} />
             <Slider {...bestSellerSlider}>
-              {MainListBook.slice(0, 10).map(item => {
-                return (
-                  <BannerBook
-                    key={item.itemId}
-                    id={item.itemId}
-                    title={item.title}
-                    image={item.cover}
-                    author={item.author}
-                  />
-                );
-              })}
+              {MainListBook &&
+                MainListBook.slice(0, 10).map(item => {
+                  return (
+                    <BannerBook
+                      key={item.itemId}
+                      id={item.itemId}
+                      title={item.title}
+                      image={item.cover}
+                      author={item.author}
+                    />
+                  );
+                })}
             </Slider>
           </section>
           <section>
             <ListTitle title={newBook} moreLink={"newBook"} />
             <Slider {...categorySlider}>
-              {MainListBook.slice(10, 19).map(item => {
-                return (
-                  <BannerBook
-                    key={item.itemId}
-                    id={item.itemId}
-                    title={item.title}
-                    image={item.cover}
-                    author={item.author}
-                    size={"sm"}
-                  />
-                );
-              })}
+              {MainListBook &&
+                MainListBook.slice(10, 19).map(item => {
+                  return (
+                    <BannerBook
+                      key={item.itemId}
+                      id={item.itemId}
+                      title={item.title}
+                      image={item.cover}
+                      author={item.author}
+                      size={"sm"}
+                    />
+                  );
+                })}
             </Slider>
           </section>
 
           <section>
             <ListTitle title={cook} moreLink={"cook"} />
             <Slider {...categorySlider}>
-              {MainListBook.slice(20, 29).map(item => {
-                return (
-                  <BannerBook
-                    key={item.itemId}
-                    id={item.itemId}
-                    title={item.title}
-                    image={item.cover}
-                    author={item.author}
-                    size={"sm"}
-                  />
-                );
-              })}
+              {MainListBook &&
+                MainListBook.slice(20, 29).map(item => {
+                  return (
+                    <BannerBook
+                      key={item.itemId}
+                      id={item.itemId}
+                      title={item.title}
+                      image={item.cover}
+                      author={item.author}
+                      size={"sm"}
+                    />
+                  );
+                })}
             </Slider>
           </section>
           <section>
             <ListTitle title={travel} moreLink={"travel"} />
             <Slider {...categorySlider}>
-              {MainListBook.slice(30, 39).map(item => {
-                return (
-                  <BannerBook
-                    key={item.itemId}
-                    id={item.itemId}
-                    title={item.title}
-                    image={item.cover}
-                    author={item.author}
-                    size={"sm"}
-                  />
-                );
-              })}
+              {MainListBook &&
+                MainListBook.slice(30, 39).map(item => {
+                  return (
+                    <BannerBook
+                      key={item.itemId}
+                      id={item.itemId}
+                      title={item.title}
+                      image={item.cover}
+                      author={item.author}
+                      size={"sm"}
+                    />
+                  );
+                })}
             </Slider>
           </section>
           <section>
             <ListTitle title={humanities} moreLink={"humanities"} />
             <Slider {...categorySlider}>
-              {true &&
+              {MainListBook &&
                 MainListBook.slice(40, 49).map(item => {
                   return (
                     <BannerBook
@@ -134,7 +138,7 @@ export default ({
           <section>
             <ListTitle title={selfDevelopment} moreLink={"self-development"} />
             <Slider {...categorySlider}>
-              {true &&
+              {MainListBook &&
                 MainListBook.slice(50, 59).map(item => {
                   return (
                     <BannerBook

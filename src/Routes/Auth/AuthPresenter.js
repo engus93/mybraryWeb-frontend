@@ -176,7 +176,18 @@ export default ({
                 <title>Sign In | MyBrary</title>
               </Helmet>
               <SignHeader>
-                <LogoBtn type={"button"} onClick={() => setAction("auth")}>
+                <LogoBtn
+                  type={"button"}
+                  onClick={() => {
+                    setAction("auth");
+                    signInEmail.setValue("");
+                    signInPw.setValue("");
+                    signUpEmail.setValue("");
+                    signUpPw.setValue("");
+                    signUpRePw.setValue("");
+                    signUpUsername.setValue("");
+                  }}
+                >
                   <MainTitle fontSize={37}>MyBrary</MainTitle>
                 </LogoBtn>
               </SignHeader>
@@ -194,12 +205,34 @@ export default ({
               />
               <SignUpClickBox>
                 <Span fontSize={10} text={"Mybrary 계정이 아직 없다면 ?"} />
-                <TransBtn type={"button"} onClick={() => setAction("signUp")}>
+                <TransBtn
+                  type={"button"}
+                  onClick={() => {
+                    setAction("signUp");
+                    signInEmail.setValue("");
+                    signInPw.setValue("");
+                    signUpEmail.setValue("");
+                    signUpPw.setValue("");
+                    signUpRePw.setValue("");
+                    signUpUsername.setValue("");
+                  }}
+                >
                   Sign Up
                 </TransBtn>
               </SignUpClickBox>
               <BtnWrapper>
-                <Authbtn type={"button"} onClick={() => setAction("auth")}>
+                <Authbtn
+                  type={"button"}
+                  onClick={() => {
+                    setAction("auth");
+                    signInEmail.setValue("");
+                    signInPw.setValue("");
+                    signUpEmail.setValue("");
+                    signUpPw.setValue("");
+                    signUpRePw.setValue("");
+                    signUpUsername.setValue("");
+                  }}
+                >
                   Cancel
                 </Authbtn>
                 <Authbtn>Sign In</Authbtn>

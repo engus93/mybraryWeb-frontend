@@ -36,7 +36,7 @@ export default withRouter(({ history: { location: { pathname } } }) => {
   return (
     <>
       {pathname &&
-        pathname !== "/writePost" &&
+        Boolean(pathname.indexOf("/writePost")) &&
         Boolean(pathname.indexOf("/editPost")) && (
           <Link to={"/writePost"}>
             <Container>
