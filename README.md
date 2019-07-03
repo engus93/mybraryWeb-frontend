@@ -2,11 +2,33 @@
 
 ### Link
 
-#### [- Mybrary web (Back-End) 보러가기)](https://github.com/engus93/mybraryWeb-backend/tree/master/Back-End)
+##### [- Mybrary web (Back-End) 보러가기)](https://github.com/engus93/mybraryWeb-backend/tree/master/Back-End)
 
-#### [- Mybrary web (Front-End 보러가기)](https://github.com/engus93/mybraryWeb-frontend)
+##### [- Mybrary web (Front-End 보러가기)](https://github.com/engus93/mybraryWeb-frontend)
 
-#### - [TIL Repository로 이동하기](https://github.com/engus93/TIL)
+##### - [TIL Repository로 이동하기](https://github.com/engus93/TIL)
+
+### MyBrary 간략한 소개 🧐
+
+> MyBrary는 예전 `Android` 프로젝트에서 만든 어플을 기반을 웹으로 재구성 해보았습니다. 핵심적인 기능으로는 아래와 같이 있습니다. 감사합니다. 👨🏻‍💻
+
+```
+1. 도서 검색
+2. 베스트셀러, 신간, 장르별 리스트 분류
+3. 도서 일기 & 일기를 공개 & 비공개로 나누어 작성
+4. 공개 일기를 사용자들과 함께 공유 & 좋아요 기능을 통해 최근순, 랭킹순 분류
+```
+
+> Heroku에 Deply 했습니다. 요금제를 Free를 이용하기에 서버가 잠들어 있을시에는 초기에 로딩이 조금 오래걸릴수 있습니다. 😃
+
+###### ※ 회원가입의 절차가 있기에 불편하신 분은 아래의 계정을 이용하면 더욱 빠르게 확인할 수 있습니다.
+
+```
+// MyBrary-Web 계정
+
+아이디: qwe@qwe.qwe
+비밀번호: qweqwe123!!
+```
 
 ---
 
@@ -123,3 +145,11 @@ yarn add unescape
 ```
 
 > `unescape`는 특수 문자들을 치환해서 String으로 변환해준다.
+
+### firebase
+
+```bash
+yarn add firebase
+```
+
+> `firebase`는 사진을 업로드 하기 위해 Storage의 용도로 사용했습니다.
