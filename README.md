@@ -16,8 +16,15 @@
 
 ## Routes
 
-- [ ] Log In
-- [ ] Sign Up
+- [x] Auth
+- [x] Main
+- [x] Search
+- [x] My Page
+- [x] Book Detail
+- [x] See My Post
+- [x] See Other Post
+- [x] Write Post
+- [x] Book List
 
 ## 환경 설정
 
