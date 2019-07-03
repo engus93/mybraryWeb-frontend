@@ -8,6 +8,8 @@
 
 ##### - [TIL Repository로 이동하기](https://github.com/engus93/TIL)
 
+##### - [MyBrary로 이동하기 😎](https://mybrary.netlify.com/)
+
 ### MyBrary 간략한 소개 🧐
 
 > MyBrary는 예전 `Android` 프로젝트에서 만든 어플을 기반을 웹으로 재구성 해보았습니다. 핵심적인 기능으로는 아래와 같이 있습니다. 감사합니다. 👨🏻‍💻
@@ -29,6 +31,52 @@
 아이디: qwe@qwe.qwe
 비밀번호: qweqwe123!!
 ```
+
+### MyBrary 각 기능별 설명
+
+#### 0. Auth
+
+    0-1. Welcome
+    0-2. Sign In
+        - PassPort & JWT을 활용한 인증
+    0-3. Sign Up
+        - Bcrypt를 이용한 암호화
+
+#### 1. Main
+
+    1-1. Apollo & GraphQL & Fetch를 이용한 알라딘 API를 이용한 데이터 처리
+    1-2. 각종 장르에 맞는 북 리스트 Slick.js를 이용해 구현
+    1-3. Write Posts 페이지로 이동 가능한 Floating Btn (Fix 상태 구현)
+
+#### 2. Book Detail
+
+    2-1. Apollo & GraphQL & Fetch를 이용한 알라딘 API를 이용한 데이터 처리
+    2-2. react-lines-ellipsis를 이용한 More 버튼 구현
+    2-3. Write Posts 페이지로 데이터 전송
+
+#### 3. Search
+
+    3-1. 도서 검색 & Paging with 알라딘 API
+
+#### 4. My Page
+
+    4-1. 회원 정보 수정
+    4-2. 회원 탈퇴
+
+#### 5. Write Posts
+
+    5-1. 글 작성
+    5-2. Firebase를 이용한 사진 업로드
+
+#### 6. My Brary
+
+    6-1. 날짜순으로 Paging
+    6-2. 수정 & 삭제 기능
+
+#### 7. See Other Posts
+
+    7-1. 최근순 & 좋아요 높은 순 정렬
+    7-2. 좋아요 기능
 
 ---
 
