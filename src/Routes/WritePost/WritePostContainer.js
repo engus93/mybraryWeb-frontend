@@ -124,9 +124,9 @@ export default withRouter(
         return toast.error("내용이 아직 없습니다. 🙄");
       } else {
         // 새로 작성하는 프로세스
+        setUploadLoading(true);
         if (!postId) {
           // 업로드 시작
-          setUploadLoading(true);
           // 사진이 존재 유무
           if (showIcon) {
             // 알라딘 API Cover URL
@@ -190,7 +190,8 @@ export default withRouter(
               variables: {
                 title: postInputTitle.value,
                 contents: postInputContents.value.replace(/\n/g, "<br>"),
-                secret: postInputSecret.value
+                secret: postInputSecret.value,
+                file: ""
               }
             });
           }
