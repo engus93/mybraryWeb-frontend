@@ -151,7 +151,7 @@ export default withRouter(() => {
           // eslint-disable-next-line no-throw-literal
           throw "알 수 없는 오류가 발생했습니다. 다시 한번 시도해주세요.";
         } else if (
-          token === "아이디가 일치하지 않습니다." ||
+          token === "존재하지 않는 아이디입니다." ||
           token === "비밀번호가 일치하지 않습니다."
         ) {
           throw token;
