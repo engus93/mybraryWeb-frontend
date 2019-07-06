@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useMutation } from "react-apollo-hooks";
 import { toast } from "react-toastify";
-import { withRouter } from "react-router-dom";
 
 // Import My Files
 import useInput from "../../Hooks/useInput";
@@ -14,7 +13,7 @@ import {
   LOCAL_LOG_IN
 } from "./AuthQueries";
 
-export default withRouter(() => {
+export default () => {
   // Variables
   const [action, setAction] = useState("auth");
   const signInEmail = useInput("");
@@ -178,4 +177,4 @@ export default withRouter(() => {
       signOnSubmit={signOnSubmit}
     />
   );
-});
+};

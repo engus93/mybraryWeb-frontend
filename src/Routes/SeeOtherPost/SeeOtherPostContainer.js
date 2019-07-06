@@ -1,6 +1,5 @@
 // Import Modules
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { useQuery, useMutation } from "react-apollo-hooks";
 
 // Import My Files
@@ -8,7 +7,7 @@ import SeeOtherPostPresenter from "./SeeOtherPostPresenter";
 import { SEE_BEST_POST_PAGING, SEE_BEST_POST } from "./SeeOtherPostQueries";
 import { toast } from "react-toastify";
 
-export default withRouter(({ history: { location } }) => {
+export default ({ history: { location } }) => {
   useEffect(() => {
     // 어느 페이지를 원하는지 체크
     setActionBest(location.pathname.split("/seeOtherPost/")[1] === "best");
@@ -118,4 +117,4 @@ export default withRouter(({ history: { location } }) => {
       eventPass={eventPass}
     />
   );
-});
+};

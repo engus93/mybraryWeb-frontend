@@ -1,7 +1,6 @@
 // Import Modules
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "react-apollo-hooks";
-import { withRouter } from "react-router-dom";
 
 // Import My Files
 import SeeMyPostPresenter from "./SeeMyPostPresenter";
@@ -9,7 +8,7 @@ import { SEE_MY_POST, SEE_MY_POST_PAGING } from "./SeeMyPostQueries";
 import { toast } from "react-toastify";
 import { DELETE_POST } from "./SeeMyPostQueries";
 
-export default withRouter(({ history }) => {
+export default ({ history }) => {
   const [page, setPage] = useState(1);
   const [pagingLoading, setPagingLoading] = useState(false);
   const [pagingList, setPagingList] = useState([]);
@@ -140,4 +139,4 @@ export default withRouter(({ history }) => {
       deleteLoading={deleteLoading}
     />
   );
-});
+};

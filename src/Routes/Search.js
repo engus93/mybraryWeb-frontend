@@ -1,7 +1,6 @@
 // Import Modules
 import React, { useState } from "react";
 import styled from "styled-components";
-import { withRouter } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
 
@@ -11,6 +10,7 @@ import ListTitle from "./../Components/ListTitle";
 import WideBookBlock from "../Components/WideBookBlock";
 import NothingBlock from "../Components/NothingBlock";
 import { useMutation } from "react-apollo-hooks";
+import { Helmet } from "react-helmet";
 
 // Style Components
 const Search = styled.div`
@@ -79,7 +79,11 @@ const SEARCH_BOOK_PAGING = gql`
   }
 `;
 
-export default withRouter(({ history: { location: { search } } }) => {
+export default ({
+  history: {
+    location: { search }
+  }
+}) => {
   // 검색어 가공
   const term = decodeURI(search).split("=")[1];
   // Page Number
@@ -134,6 +138,9 @@ export default withRouter(({ history: { location: { search } } }) => {
       {!loading && SearchBook && (
         <Search>
           <Container>
+            <Helmet>
+              <title>{`${term} | MyBrary`}</title>
+            </Helmet>
             <ListTitle search={term} title={` 에 관한 자료입니다. 🔍`} />
             {/* 검색 결과가 없을시 */}
             {SearchBook && SearchBook.length === 0 && (
@@ -184,4 +191,4 @@ export default withRouter(({ history: { location: { search } } }) => {
       )}
     </>
   );
-});
+};
