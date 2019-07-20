@@ -16,8 +16,8 @@ import {
 export default () => {
   // Variables
   const [action, setAction] = useState("auth");
-  const signInEmail = useInput("");
-  const signInPw = useInput("");
+  const signInEmail = useInput("qwe@qwe.qwe");
+  const signInPw = useInput("qweqwe123!!");
   const signUpEmail = useInput("");
   const signUpPw = useInput("");
   const signUpRePw = useInput("");
