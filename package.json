@@ -13,7 +13,7 @@
     "react-helmet": "^5.2.1",
     "react-lines-ellipsis": "^0.14.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "react-slick": "^0.24.0",
     "react-toastify": "^5.2.1",
     "styled-components": "^4.3.1",
